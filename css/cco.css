@@ -367,3 +367,8 @@ body {
 @media(max-width:780px){
   .custom-trains-grid{grid-template-columns:1fr}
 }
+
+
+/* Revisao v56 - sinoptico abstrato de sinalizacao */
+.track-base,.segment,.amv{stroke-linecap:round;stroke-linejoin:round}
+.amv{filter:none!important}

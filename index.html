@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulador de Elementos Ferroviários</title>
-  <link rel="stylesheet" href="./css/cco.css?v=52">
+  <link rel="stylesheet" href="./css/cco.css?v=56">
 </head>
 <body>
 <header class="cco-header">
@@ -12,7 +12,6 @@
     <h1>Simulador de Elementos Ferroviários</h1>
     <span class="subtitle">Ferramenta pessoal para visualizar e estudar elementos da ferrovia</span>
   </div>
-  <div class="app-badge">Estudo pessoal</div>
 </header>
 
 <section class="operation-hub" aria-label="Modos de operacao">
@@ -126,15 +125,15 @@
   <g id="track-base-layer">
     <line class="track-base" x1="90" y1="130" x2="1710" y2="130"/>
     <line class="track-base" x1="90" y1="230" x2="1710" y2="230"/>
-    <line class="track-base" x1="470" y1="350" x2="1120" y2="350"/>
-    <line class="track-base" x1="470" y1="390" x2="1120" y2="390"/>
-    <line class="track-base" x1="470" y1="430" x2="1120" y2="430"/>
-    <line class="track-base" x1="1120" y1="520" x2="1480" y2="520"/>
-    <line class="track-base" x1="1120" y1="560" x2="1480" y2="560"/>
-    <line class="track-base" x1="1120" y1="600" x2="1480" y2="600"/>
-    <line class="track-base" x1="1120" y1="640" x2="1480" y2="640"/>
-    <path class="track-base" d="M 520 665 C 640 760, 980 775, 1120 745"/>
-    <path class="track-base" d="M 1120 745 C 1260 715, 1305 665, 1345 610"/>
+    <line class="track-base" x1="520" y1="330" x2="1120" y2="330"/>
+    <line class="track-base" x1="680" y1="370" x2="1120" y2="370"/>
+    <line class="track-base" x1="760" y1="410" x2="1120" y2="410"/>
+    <line class="track-base" x1="1400" y1="330" x2="1660" y2="330"/>
+    <line class="track-base" x1="1440" y1="370" x2="1660" y2="370"/>
+    <line class="track-base" x1="1480" y1="410" x2="1660" y2="410"/>
+    <line class="track-base" x1="1520" y1="450" x2="1660" y2="450"/>
+    <path class="track-base" d="M 520 610 L 620 690 L 1120 690"/>
+    <path class="track-base" d="M 1120 690 L 1420 690 L 1620 230"/>
   </g>
   <g id="track-segments">
     <line id="SEG-L1-B01" class="segment" x1="90" y1="130" x2="270" y2="130"/><text class="block-label" x="180" y="116">L1-B01</text>
@@ -157,17 +156,17 @@
     <line id="SEG-L2-B08" class="segment" x1="1350" y1="230" x2="1530" y2="230"/><text class="block-label" x="1440" y="216">L2-B08</text>
     <line id="SEG-L2-B09" class="segment" x1="1530" y1="230" x2="1710" y2="230"/><text class="block-label" x="1620" y="216">L2-B09</text>
 
-    <line id="SEG-PA1-B01" class="segment" x1="470" y1="350" x2="795" y2="350"/><text class="block-label" x="632" y="336">PA1-B01</text>
-    <line id="SEG-PA1-B02" class="segment" x1="795" y1="350" x2="1120" y2="350"/><text class="block-label" x="958" y="336">PA1-B02</text>
-    <line id="SEG-PA2-B01" class="segment" x1="470" y1="390" x2="795" y2="390"/><text class="block-label" x="632" y="376">PA2-B01</text>
-    <line id="SEG-PA2-B02" class="segment" x1="795" y1="390" x2="1120" y2="390"/><text class="block-label" x="958" y="376">PA2-B02</text>
-    <line id="SEG-PA3-B01" class="segment" x1="470" y1="430" x2="795" y2="430"/><text class="block-label" x="632" y="416">PA3-B01</text>
-    <line id="SEG-PA3-B02" class="segment" x1="795" y1="430" x2="1120" y2="430"/><text class="block-label" x="958" y="416">PA3-B02</text>
+    <line id="SEG-PA1-B01" class="segment" x1="520" y1="330" x2="820" y2="330"/><text class="block-label" x="670" y="316">PA1-B01</text>
+    <line id="SEG-PA1-B02" class="segment" x1="820" y1="330" x2="1120" y2="330"/><text class="block-label" x="970" y="316">PA1-B02</text>
+    <line id="SEG-PA2-B01" class="segment" x1="680" y1="370" x2="900" y2="370"/><text class="block-label" x="790" y="356">PA2-B01</text>
+    <line id="SEG-PA2-B02" class="segment" x1="900" y1="370" x2="1120" y2="370"/><text class="block-label" x="1010" y="356">PA2-B02</text>
+    <line id="SEG-PA3-B01" class="segment" x1="760" y1="410" x2="940" y2="410"/><text class="block-label" x="850" y="396">PA3-B01</text>
+    <line id="SEG-PA3-B02" class="segment" x1="940" y1="410" x2="1120" y2="410"/><text class="block-label" x="1030" y="396">PA3-B02</text>
 
-    <line id="SEG-PB1-B01" class="segment" x1="1120" y1="520" x2="1480" y2="520"/><text class="block-label" x="1300" y="506">PB1-B01</text>
-    <line id="SEG-PB2-B01" class="segment" x1="1120" y1="560" x2="1480" y2="560"/><text class="block-label" x="1300" y="546">PB2-B01</text>
-    <line id="SEG-PB3-B01" class="segment" x1="1120" y1="600" x2="1480" y2="600"/><text class="block-label" x="1300" y="586">PB3-B01</text>
-    <line id="SEG-PB4-B01" class="segment" x1="1120" y1="640" x2="1480" y2="640"/><text class="block-label" x="1300" y="626">PB4-B01</text>
+    <line id="SEG-PB1-B01" class="segment" x1="1400" y1="330" x2="1660" y2="330"/><text class="block-label" x="1530" y="316">PB1-B01</text>
+    <line id="SEG-PB2-B01" class="segment" x1="1440" y1="370" x2="1660" y2="370"/><text class="block-label" x="1550" y="356">PB2-B01</text>
+    <line id="SEG-PB3-B01" class="segment" x1="1480" y1="410" x2="1660" y2="410"/><text class="block-label" x="1570" y="396">PB3-B01</text>
+    <line id="SEG-PB4-B01" class="segment" x1="1520" y1="450" x2="1660" y2="450"/><text class="block-label" x="1590" y="436">PB4-B01</text>
 
 
     <!-- Segmentos reversos da Linha 2 para cenarios de cruzamento em sentido contrario -->
@@ -177,22 +176,21 @@
     <line id="SEG-L2-B07-R" class="segment reverse-segment" x1="1350" y1="230" x2="1170" y2="230"/><text class="block-label reverse-label" x="1260" y="246">L2-B07-R</text>
     <line id="SEG-L2-B08-R" class="segment reverse-segment" x1="1530" y1="230" x2="1350" y2="230"/><text class="block-label reverse-label" x="1440" y="246">L2-B08-R</text>
     <line id="SEG-L2-B09-R" class="segment reverse-segment" x1="1710" y1="230" x2="1530" y2="230"/><text class="block-label reverse-label" x="1620" y="246">L2-B09-R</text>
-    <path id="SEG-PERA-B01" class="segment" d="M 520 665 C 640 760, 980 775, 1120 745"/><text class="block-label" x="820" y="770">PERA-B01</text>
-    <path id="SEG-PERA-B02" class="segment" d="M 1120 745 C 1260 715, 1305 665, 1345 610"/><text class="block-label" x="1240" y="715">PERA-B02</text>
-    <path id="SEG-PERA-B03" class="segment" d="M 1345 610 C 1400 535, 1440 400, 1490 230"/><text class="block-label" x="1438" y="438">PERA-B03</text>
+    <path id="SEG-PERA-B01" class="segment" d="M 520 610 L 620 690 L 1120 690"/><text class="block-label" x="820" y="676">PERA-B01</text>
+    <path id="SEG-PERA-B02" class="segment" d="M 1120 690 L 1420 690 L 1500 610"/><text class="block-label" x="1280" y="676">PERA-B02</text>
+    <path id="SEG-PERA-B03" class="segment" d="M 1500 610 L 1580 530 L 1620 230"/><text class="block-label" x="1570" y="500">PERA-B03</text>
   </g>
   <g id="amv-layer">
-    <path id="SEG-AMV-01" class="amv" d="M 360 130 C 390 165, 420 200, 450 230"/><text class="block-label" x="405" y="175">AMV-01</text>
-    <path id="SEG-AMV-02" class="amv" d="M 810 230 C 850 195, 890 160, 930 130"/><text class="block-label" x="870" y="175">AMV-02</text>
-    <path id="SEG-AMV-03" class="amv" d="M 1080 130 C 1115 165, 1150 200, 1170 230"/><text class="block-label" x="1126" y="175">AMV-03</text>
-    <path id="SEG-AMV-04" class="amv" d="M 1440 230 C 1480 195, 1520 160, 1560 130"/><text class="block-label" x="1500" y="175">AMV-04</text>
-    <path id="SEG-AMV-05" class="amv" d="M 450 230 C 470 275, 470 315, 470 350"/><text class="block-label" x="455" y="292">AMV-05</text>
-    <path id="SEG-AMV-06" class="amv" d="M 1120 350 C 1145 315, 1160 270, 1170 230"/><text class="block-label" x="1148" y="292">AMV-06</text>
-    <path id="SEG-AMV-07" class="amv" d="M 630 230 C 645 285, 660 345, 670 390"/><text class="block-label" x="650" y="315">AMV-07</text>
-    <path id="SEG-AMV-08" class="amv" d="M 1120 430 C 1160 370, 1200 295, 1260 230"/><text class="block-label" x="1190" y="342">AMV-08</text>
-    <path id="SEG-AMV-09" class="amv" d="M 1260 230 C 1235 330, 1200 430, 1160 520"/><text class="block-label" x="1215" y="380">AMV-09</text>
+    <path id="SEG-AMV-01" class="amv" d="M 360 130 L 450 230"/><text class="block-label" x="405" y="175">AMV-01</text>
+    <path id="SEG-AMV-02" class="amv" d="M 810 230 L 900 130"/><text class="block-label" x="870" y="175">AMV-02</text>
+    <path id="SEG-AMV-03" class="amv" d="M 1080 130 L 1170 230"/><text class="block-label" x="1126" y="175">AMV-03</text>
+    <path id="SEG-AMV-04" class="amv" d="M 1440 230 L 1530 130"/><text class="block-label" x="1500" y="175">AMV-04</text>
+    <path id="SEG-AMV-05" class="amv" d="M 450 230 L 520 330"/><text class="block-label" x="455" y="292">AMV-05</text>
+    <path id="SEG-AMV-06" class="amv" d="M 1120 330 L 1170 230"/><text class="block-label" x="1148" y="292">AMV-06</text>
+    <path id="SEG-AMV-07" class="amv" d="M 680 370 L 630 230"/><text class="block-label" x="650" y="315">AMV-07</text>
+    <path id="SEG-AMV-09" class="amv" d="M 1350 230 L 1400 330"/><text class="block-label" x="1215" y="380">AMV-09</text>
     <path id="SEG-AMV-10" class="amv" d="M 1480 640 C 1510 520, 1515 370, 1530 230"/><text class="block-label" x="1510" y="438">AMV-10</text>
-    <path id="SEG-AMV-11" class="amv" d="M 450 230 C 490 365, 500 520, 520 665"/><text class="block-label" x="490" y="445">AMV-11</text>
+    <path id="SEG-AMV-11" class="amv" d="M 450 230 L 490 310 L 490 550 L 520 610"/><text class="block-label" x="490" y="445">AMV-11</text>
     <path id="SEG-AMV-12" class="amv" d="M 1480 640 C 1508 515, 1516 372, 1530 230"/><text class="block-label" x="1540" y="445">AMV-12</text>
   </g>
   <g id="station-layer">
@@ -201,10 +199,10 @@
     <rect class="station-box" x="1660" y="102" width="84" height="42"/><text class="station-text" x="1702" y="128">EST F</text>
     <rect class="station-box" x="40" y="202" width="74" height="42"/><text class="station-text" x="77" y="228">EST C</text>
     <rect class="station-box" x="1660" y="202" width="84" height="42"/><text class="station-text" x="1702" y="228">EST D</text>
-    <rect class="station-box" x="650" y="303" width="300" height="30"/><text class="station-text" x="800" y="324">PÁTIO A - CRUZAMENTO</text>
-    <rect class="station-box" x="1160" y="472" width="280" height="30"/><text class="station-text" x="1300" y="493">PÁTIO B - MANOBRA</text>
-    <rect class="station-box" x="760" y="635" width="110" height="34"/><text class="station-text" x="815" y="657">PERA</text>
-    <rect class="station-box" x="1040" y="690" width="90" height="34"/><text class="station-text" x="1085" y="712">EST E</text>
+    <rect class="station-box" x="700" y="278" width="300" height="30"/><text class="station-text" x="850" y="299">PÁTIO A - CRUZAMENTO</text>
+    <rect class="station-box" x="1380" y="278" width="280" height="30"/><text class="station-text" x="1520" y="299">PÁTIO B - MANOBRA</text>
+    <rect class="station-box" x="900" y="635" width="110" height="34"/><text class="station-text" x="955" y="657">PERA</text>
+    <rect class="station-box" x="1160" y="642" width="90" height="34"/><text class="station-text" x="1205" y="664">EST E</text>
   </g>
     <g id="signal-layer">
     <g transform="translate(100,102)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-L1-01" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-L1-01</text></g>
@@ -217,17 +215,17 @@
     <g transform="translate(810,202)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-L2-03" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-L2-03</text></g>
     <g transform="translate(1170,202)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-L2-04" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-L2-04</text></g>
     <g transform="translate(1530,202)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-L2-05" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-L2-05</text></g>
-    <g transform="translate(470,322)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-PA-01" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-PA-01</text></g>
-    <g transform="translate(1120,322)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-PA-02" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-PA-02</text></g>
-    <g transform="translate(1120,492)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-PB-01" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-PB-01</text></g>
-    <g transform="translate(1480,492)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-PB-02" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-PB-02</text></g>
-    <g transform="translate(520,637)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-PR-01" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-PR-01</text></g>
-    <g transform="translate(1345,582)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-PR-02" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-PR-02</text></g>
+    <g transform="translate(520,302)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-PA-01" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-PA-01</text></g>
+    <g transform="translate(1120,302)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-PA-02" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-PA-02</text></g>
+    <g transform="translate(1400,302)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-PB-01" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-PB-01</text></g>
+    <g transform="translate(1660,302)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-PB-02" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-PB-02</text></g>
+    <g transform="translate(520,582)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-PR-01" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-PR-01</text></g>
+    <g transform="translate(1500,582)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-PR-02" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-PR-02</text></g>
   </g>
   <g id="sensor-layer"></g>
   <script><![CDATA[
     const sg=document.currentScript.previousElementSibling;
-    const pts=[[105,130,'S101'],[270,130,'S102'],[450,130,'S103'],[630,130,'S104'],[810,130,'S105'],[990,130,'S106'],[1170,130,'S107'],[1350,130,'S108'],[1530,130,'S109'],[105,230,'S201'],[270,230,'S202'],[450,230,'S203'],[630,230,'S204'],[810,230,'S205'],[990,230,'S206'],[1170,230,'S207'],[1350,230,'S208'],[1530,230,'S209'],[485,350,'SPA1'],[1110,350,'SPA2'],[485,390,'SPA3'],[485,430,'SPA5'],[1135,520,'SPB1'],[1135,560,'SPB3'],[1465,640,'SPB6'],[540,660,'SPR1'],[820,760,'SPR2'],[1120,740,'SPR3'],[1345,610,'SPR4']];
+    const pts=[[105,130,'S101'],[270,130,'S102'],[450,130,'S103'],[630,130,'S104'],[810,130,'S105'],[990,130,'S106'],[1170,130,'S107'],[1350,130,'S108'],[1530,130,'S109'],[105,230,'S201'],[270,230,'S202'],[450,230,'S203'],[630,230,'S204'],[810,230,'S205'],[990,230,'S206'],[1170,230,'S207'],[1350,230,'S208'],[1530,230,'S209'],[535,330,'SPA1'],[1110,330,'SPA2'],[695,370,'SPA3'],[775,410,'SPA5'],[1415,330,'SPB1'],[1455,370,'SPB3'],[1645,450,'SPB6'],[520,610,'SPR1'],[820,690,'SPR2'],[1120,690,'SPR3'],[1500,610,'SPR4']];
     pts.forEach(p=>{ const c=document.createElementNS('http://www.w3.org/2000/svg','circle'); c.setAttribute('class','sensor'); c.setAttribute('cx',p[0]); c.setAttribute('cy',p[1]); c.setAttribute('r','4'); const t=document.createElementNS('http://www.w3.org/2000/svg','text'); t.setAttribute('class','sensor-label'); t.setAttribute('x',p[0]); t.setAttribute('y',p[1]+16); t.textContent=p[2]; sg.append(c,t); });
   ]]></script>
   <g id="train-layer">
@@ -239,19 +237,19 @@
       <rect class="train-loco" x="-38" y="-13" width="76" height="26" rx="6"/>
       <text class="train-text" x="0" y="4">T201</text>
     </g>
-    <g id="TRAIN-T301" class="train freight-yard" transform="translate(635,350)">
+    <g id="TRAIN-T301" class="train freight-yard" transform="translate(670,330)">
       <rect class="train-loco" x="-34" y="-12" width="68" height="24" rx="6"/>
       <text class="train-text" x="0" y="4">T301</text>
     </g>
-    <g id="TRAIN-T302" class="train freight-yard" transform="translate(635,390)">
+    <g id="TRAIN-T302" class="train freight-yard" transform="translate(790,370)">
       <rect class="train-loco" x="-34" y="-12" width="68" height="24" rx="6"/>
       <text class="train-text" x="0" y="4">T302</text>
     </g>
-    <g id="TRAIN-T401" class="train freight-heavy" transform="translate(1280,520)">
+    <g id="TRAIN-T401" class="train freight-heavy" transform="translate(1510,330)">
       <rect class="train-loco" x="-34" y="-12" width="68" height="24" rx="6"/>
       <text class="train-text" x="0" y="4">T401</text>
     </g>
-    <g id="TRAIN-T501" class="train freight-return" transform="translate(690,740)">
+    <g id="TRAIN-T501" class="train freight-return" transform="translate(760,690)">
       <rect class="train-loco" x="-34" y="-12" width="68" height="24" rx="6"/>
       <text class="train-text" x="0" y="4">T501</text>
     </g>
@@ -260,7 +258,7 @@
 </section>
 
 </main>
-<script src="./js/cco.js?v=52"></script>
-<script src="./js/decisions.js?v=52"></script>
+<script src="./js/cco.js?v=56"></script>
+<script src="./js/decisions.js?v=56"></script>
 </body>
 </html>

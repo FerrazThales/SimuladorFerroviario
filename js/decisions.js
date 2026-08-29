@@ -115,7 +115,7 @@ const MISSOES = {
     falha_amv_decisao: {
         nome:'Missao 3 - Falha de AMV e contingencia',
         descricao:'Uma falha de AMV exige protecao da area, replanejamento e escolha de rota segura.',
-        posicoesIniciais:{ T302:'translate(635,390)', T101:'translate(135,130)' },
+        posicoesIniciais:{ T302:'translate(790,370)', T101:'translate(135,130)' },
         ocupacoesIniciais:[],
         passos:[{
             tipo:'decisao', titulo:'AMV-07 sem confirmacao de posicao',
@@ -145,7 +145,7 @@ const MISSOES = {
     fila_terminal_decisao: {
         nome:'Missao 5 - Fila no terminal',
         descricao:'O terminal reduz a capacidade de recebimento e o CCO precisa regular chegadas.',
-        posicoesIniciais:{ T201:'translate(720,230)', T401:'translate(1280,520)', T501:'translate(690,740)' },
+        posicoesIniciais:{ T201:'translate(720,230)', T401:'translate(1510,330)', T501:'translate(760,690)' },
         ocupacoesIniciais:[],
         passos:[{
             tipo:'decisao', titulo:'Terminal com recebimento restrito',

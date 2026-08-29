@@ -38,7 +38,7 @@ const TRACK_SEGMENTS = {
     'SEG-PB1-B01': 'PB1-B01', 'SEG-PB2-B01': 'PB2-B01', 'SEG-PB3-B01': 'PB3-B01', 'SEG-PB4-B01': 'PB4-B01',
     'SEG-PERA-B01': 'PERA-B01', 'SEG-PERA-B02': 'PERA-B02', 'SEG-PERA-B03': 'PERA-B03',
     'SEG-AMV-01': 'AMV-01', 'SEG-AMV-02': 'AMV-02', 'SEG-AMV-03': 'AMV-03', 'SEG-AMV-04': 'AMV-04',
-    'SEG-AMV-05': 'AMV-05', 'SEG-AMV-06': 'AMV-06', 'SEG-AMV-07': 'AMV-07', 'SEG-AMV-08': 'AMV-08',
+    'SEG-AMV-05': 'AMV-05', 'SEG-AMV-06': 'AMV-06', 'SEG-AMV-07': 'AMV-07',
     'SEG-AMV-09': 'AMV-09', 'SEG-AMV-10': 'AMV-10', 'SEG-AMV-11': 'AMV-11', 'SEG-AMV-12': 'AMV-12',
 };
 
@@ -1076,7 +1076,7 @@ SCENARIOS.cruzamento = {
     bloqueios: [],
     posicoesIniciais: {
         T101: 'translate(1660,230)',
-        T301: 'translate(805,350)'
+        T301: 'translate(820,330)'
     },
     rotas: [
         { rota: 'T301_DESVIADA_PATIO_A_CRUZAMENTO', delay: 0 },
@@ -1210,7 +1210,7 @@ SCENARIOS.cruzamento = {
     bloqueios: [],
     posicoesIniciais: {
         T101: 'translate(1660,230)',
-        T301: 'translate(805,350)'
+        T301: 'translate(820,330)'
     },
     rotas: [
         { rota: 'T301_ENTRA_DESVIADA_PATIO_A', delay: 0 },
@@ -1748,3 +1748,66 @@ function inicializarVisaoV46(){
     [1,2].forEach(i=>{const input=document.getElementById(`custom-train-${i}-name`);input?.addEventListener('input',()=>preencherRotasV46(i));preencherRotasV46(i);});
 }
 if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',inicializarVisaoV46);else inicializarVisaoV46();
+
+
+// ===== Revisao v53 - cenario de falha de AMV com contingencia =====
+ROUTES.T302_SAIDA_APOS_REPARO_AMV07 = {
+    trem: 'T302',
+    nome: 'T302 saida do Patio A apos normalizacao do AMV-07',
+    segmentos: ['SEG-AMV-07', 'SEG-L2-B04', 'SEG-L2-B05'],
+    amvs: ['SEG-AMV-07'],
+    sinais: ['S-PA-01', 'S-L2-03']
+};
+
+SCENARIOS.falha_amv = {
+    nome: 'Cenario 4 - Falha de AMV e contingencia operacional',
+    descricao: 'T302 aguarda no Patio A porque o AMV-07 perdeu confirmacao. A Linha 1 permanece disponivel para o T101. Depois da verificacao e normalizacao do aparelho, o T302 recebe autorizacao para sair do patio.',
+    bloqueios: ['SEG-AMV-07'],
+    posicoesIniciais: {
+        T302: 'translate(680,370)',
+        T101: 'translate(135,130)'
+    },
+    rotas: []
+};
+
+const iniciarCenarioBaseV53 = iniciarCenario;
+iniciarCenario = function(nomeCenario) {
+    if (nomeCenario !== 'falha_amv') return iniciarCenarioBaseV53(nomeCenario);
+
+    const scenario = SCENARIOS.falha_amv;
+    aplicarConfiguracaoDoCenario(scenario);
+    resetarCenario(false);
+    marcarCenarioAtivo(nomeCenario);
+    aplicarPosicoesIniciaisDoCenario(scenario);
+
+    mudarStatusTrem('T302', 'bloqueado');
+    registrarEvento(`Iniciando ${scenario.nome}`);
+    registrarEvento('AMV-07 sem confirmacao de posicao. Rota do T302 temporariamente bloqueada.');
+    registrarEvento('T302 mantido no Patio A em condicao de espera segura.');
+
+    const liberarLinha1 = setTimeout(() => {
+        registrarEvento('Linha 1 verificada livre. T101 autorizado a circular durante a contingencia.');
+        solicitarRota('T101_EXPRESSO_LINHA1');
+    }, 900);
+    activeTimers.push(liberarLinha1);
+
+    const iniciarInspecao = setTimeout(() => {
+        registrarEvento('Equipe de manutencao iniciou verificacao do AMV-07.');
+    }, 3000);
+    activeTimers.push(iniciarInspecao);
+
+    const normalizarAmv = setTimeout(() => {
+        SEGMENTOS_INDISPONIVEIS_INICIAIS.delete('SEG-AMV-07');
+        const state = segmentState['SEG-AMV-07'];
+        if (state) {
+            state.estado = ESTADO_SEGMENTO.LIVRE;
+            state.trem = null;
+        }
+        pintarSegmento('SEG-AMV-07', ESTADO_SEGMENTO.LIVRE);
+        mudarStatusTrem('T302', 'aguardando');
+        registrarEvento('AMV-07 normalizado e confirmado para circulacao.');
+        registrarEvento('T302 autorizado a sair do Patio A pela Linha 2.');
+        solicitarRota('T302_SAIDA_APOS_REPARO_AMV07');
+    }, 7200);
+    activeTimers.push(normalizarAmv);
+};
