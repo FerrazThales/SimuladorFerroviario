@@ -39,7 +39,7 @@ const TRACK_SEGMENTS = {
     'SEG-PERA-B01': 'PERA-B01', 'SEG-PERA-B02': 'PERA-B02', 'SEG-PERA-B03': 'PERA-B03',
     'SEG-AMV-01': 'AMV-01', 'SEG-AMV-02': 'AMV-02', 'SEG-AMV-03': 'AMV-03', 'SEG-AMV-04': 'AMV-04',
     'SEG-AMV-05': 'AMV-05', 'SEG-AMV-06': 'AMV-06', 'SEG-AMV-07': 'AMV-07', 'SEG-AMV-08': 'AMV-08',
-    'SEG-AMV-09': 'AMV-09', 'SEG-AMV-10': 'AMV-10', 'SEG-AMV-11': 'AMV-11', 'SEG-AMV-12': 'AMV-12',
+    'SEG-AMV-09': 'AMV-09', 'SEG-AMV-11': 'AMV-11',
 };
 
 const ROUTES = {
@@ -48,7 +48,7 @@ const ROUTES = {
     T201_CRUZAMENTO_BLOQUEADOR: { trem: 'T201', nome: 'T201 ocupando zona de conflito L2-B07/L2-B08', segmentos: ['SEG-L2-B07','SEG-L2-B08','SEG-L2-B09'], sinais: ['S-L2-04','S-L2-05'] },
     T301_SAIDA_PATIO_A: { trem: 'T301', nome: 'T301 saida do Patio A para Linha 2', segmentos: ['SEG-PA1-B01','SEG-PA1-B02','SEG-AMV-06','SEG-L2-B06','SEG-L2-B07'], amvs: ['SEG-AMV-06'], sinais: ['S-PA-01','S-PA-02','S-L2-04'] },
     T302_FALHA_AMV: { trem: 'T302', nome: 'T302 tentativa bloqueada por falha de AMV-07', segmentos: ['SEG-PA3-B01','SEG-AMV-07','SEG-L2-B04'], amvs: ['SEG-AMV-07'], sinais: ['S-PA-01'] },
-    T501_PERA: { trem: 'T501', nome: 'T501 retorno pela pera operacional', segmentos: ['SEG-PERA-B01','SEG-PERA-B02','SEG-PERA-B03'], amvs: ['SEG-AMV-11','SEG-AMV-12'], sinais: ['S-PR-01','S-PR-02','S-L2-05'] },
+    T501_PERA: { trem: 'T501', nome: 'T501 retorno pela pera operacional', segmentos: ['SEG-PERA-B01','SEG-PERA-B02','SEG-PERA-B03'], amvs: ['SEG-AMV-11'], sinais: ['S-PR-01','S-PR-02','S-L2-05'] },
 };
 
 const ALTERNATIVE_ROUTES = {
@@ -731,8 +731,8 @@ ROUTES.T301_SAIDA_PATIO_LIVRE = {
 ROUTES.T501_PERA_COMPLETA = {
     trem: 'T501',
     nome: 'T501 retorno completo pela pera operacional',
-    segmentos: ['SEG-AMV-11','SEG-PERA-B01','SEG-PERA-B02','SEG-PERA-B03','SEG-AMV-12'],
-    amvs: ['SEG-AMV-11','SEG-AMV-12'],
+    segmentos: ['SEG-AMV-11','SEG-PERA-B01','SEG-PERA-B02','SEG-PERA-B03'],
+    amvs: ['SEG-AMV-11'],
     sinais: ['S-PR-01','S-PR-02','S-L2-05']
 };
 
