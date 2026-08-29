@@ -372,3 +372,64 @@ body {
 /* Revisao v56 - sinoptico abstrato de sinalizacao */
 .track-base,.segment,.amv{stroke-linecap:round;stroke-linejoin:round}
 .amv{filter:none!important}
+
+
+/* ===== Revisao v58 - painel sinoptico ferroviario ===== */
+:root{--bg:#010304;--panel:#05080c;--panel2:#070b10;--line-base:#26313a;--livre:#18ed78;--reservado:#f5d447;--ocupado:#ff4b55;--indisp:#787f86;--sensor:#43cef3;--txt:#e8f0f6;--muted:#82909b}
+body{background:#010304;color:var(--txt);font-family:Consolas,"Segoe UI",monospace}
+.cco-header{height:54px;background:#030609;border-bottom:1px solid #26313a;padding:0 16px;box-shadow:none;backdrop-filter:none}.cco-header h1{font-family:"Segoe UI",Arial,sans-serif;font-size:16px;letter-spacing:.1px}.cco-header .subtitle{font-family:"Segoe UI",Arial,sans-serif;font-size:10.5px;color:#83909c}
+.operation-hub,.mode-tabs{background:#030609;box-shadow:none}.operation-hub{border-bottom:1px solid #26313a}.mode-panel{background:#060a0f}.mode-tab{font-family:"Segoe UI",Arial,sans-serif}.mode-tab.active{background:#071a16;border-bottom-color:#18ed78}
+.cco-main{background:#010304;grid-template-columns:290px minmax(0,1fr)}.event-console{background:#04070a;border-right:1px solid #26313a}.console-summary,.event-feed{background:#060a0e;border:1px solid #26313a;border-radius:2px;box-shadow:none}.state-card{background:#03070b;border-radius:2px;min-height:38px}.state-card strong{font-family:Consolas,monospace}#event-list li{background:#04080d;border-radius:1px;border-left-width:2px;font-family:Consolas,monospace}
+.synoptic-panel{background:#000;padding:8px}#cco-realista-svg{background:#000;border:1px solid #1d272f;border-radius:0;box-shadow:none}
+.track-base{stroke:#202a31!important;stroke-width:9px!important;opacity:1!important;filter:none!important;stroke-linecap:square!important;stroke-linejoin:miter!important}.segment,.amv{stroke-width:5px!important;filter:none!important;stroke-linecap:square!important;stroke-linejoin:miter!important;transition:stroke .08s linear!important}.segment{stroke:var(--livre)}.amv{stroke:var(--livre)!important}.segment.reserved,.amv.reserved{stroke:var(--reservado)!important;stroke-width:5.5px!important}.segment.occupied,.amv.occupied{stroke:var(--ocupado)!important;stroke-width:6px!important;filter:none!important}.segment.unavailable,.amv.unavailable,.amv.failed{stroke:var(--indisp)!important;stroke-width:5px!important;stroke-dasharray:7 5!important;filter:none!important}.reverse-segment.reserved{stroke-width:5.5px!important}.reverse-segment.occupied{stroke-width:6px!important;filter:none!important}
+.synoptic-main-title{fill:#d8e2e9;font:700 13px Consolas,monospace;letter-spacing:1.5px;text-anchor:middle}.synoptic-subtitle{fill:#5e6e79;font:7.5px Consolas,monospace;text-anchor:middle}.block-label{fill:#71a7c8;font:6.1px Consolas,monospace;letter-spacing:.1px}.signal-label{fill:#e1c34e;font:5.9px Consolas,monospace}.sensor-label{fill:#55c7e8;font:5.4px Consolas,monospace}.area-code{fill:#8b9daa;font:700 7px Consolas,monospace;letter-spacing:1px}.direction-label{fill:#526671;font:6px Consolas,monospace;letter-spacing:.6px}.panel-divider{stroke:#26313a;stroke-width:1;stroke-dasharray:3 5}.panel-divider-label{fill:#4f626e;font:6px Consolas,monospace;writing-mode:vertical-rl;letter-spacing:.7px}.point-indicator{fill:#18ed78;stroke:#081a10;stroke-width:.6px}
+.station-box.station-plate{fill:#04090d;stroke:#8095a3;stroke-width:.75;rx:0;opacity:1}.station-text{fill:#d8e2e9;font:700 7px Consolas,monospace;letter-spacing:.4px}.signal-mast{stroke:#6f7d86;stroke-width:1}.signal-head{fill:#010203;stroke:#9ba8b0;stroke-width:.7;rx:0}.signal-lamp{fill:#be3038;stroke:#e8eef2;stroke-width:.55;filter:none!important}.signal-lamp.green{fill:#18ed78;filter:none!important}.signal-lamp.yellow{fill:#f5d447}.signal-lamp.red{fill:#ff4b55;filter:none!important}.sensor{fill:#43cef3;stroke:#dff7ff;stroke-width:.5}.sensor.active{fill:#ff4b55;filter:none!important}
+.train{filter:none!important}.train-loco{fill:#0878c5!important;stroke:#d9efff!important;stroke-width:.7!important;rx:1!important}.freight-heavy .train-loco{fill:#d79517!important}.freight-yard .train-loco{fill:#cf7417!important}.freight-return .train-loco{fill:#8755b4!important}.freight-priority .train-loco{fill:#0878c5!important}.train-text{font:700 7.2px Consolas,monospace;fill:#fff}
+
+
+/* ===== Revisao v61 - topologia de painel de controle ferroviario ===== */
+.yard-ladder{fill:none;stroke:#7fa4bf;stroke-width:2.2;stroke-linecap:square;stroke-linejoin:miter;opacity:.75}
+.yard-title{fill:#d9e7f1;font:700 7px Consolas,monospace;text-anchor:middle;letter-spacing:.7px}
+.track-base{stroke:#18242c!important;stroke-width:8px!important;stroke-linecap:square!important;stroke-linejoin:miter!important}
+.segment,.amv{stroke-width:4.2px!important;stroke-linecap:square!important;stroke-linejoin:miter!important;filter:none!important}
+.block-label{font-size:6px!important}.station-box{rx:0!important}.train-loco{rx:0!important}
+
+
+/* ===== Revisão v62 - Modo Decisão gamificado ===== */
+.decision-game-hud{display:flex;gap:6px;margin-left:auto;align-items:stretch}
+.decision-game-hud>span{display:flex;min-width:74px;flex-direction:column;justify-content:center;padding:4px 8px;border:1px solid #2b3a46;background:#04090d}
+.decision-game-hud small,.impact-grid small{color:#79909f;font:600 7px Consolas,monospace;text-transform:uppercase;letter-spacing:.5px}
+.decision-game-hud strong{color:#eaf5fb;font:700 12px Consolas,monospace;line-height:1.1}
+.impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.impact-grid>span{display:flex;min-height:58px;flex-direction:column;justify-content:center;padding:8px;border:1px solid #2b3a46;background:#050a0f;text-align:center}
+.impact-grid strong{color:#fff;font:700 18px Consolas,monospace;margin-top:4px}
+.resultado-escolha--seguro{border-color:#20e878!important}.resultado-escolha--moderado{border-color:#f1ce45!important}.resultado-escolha--arriscado,.game-over-modal{border-color:#f04452!important}
+.resultado-feedback{margin:10px 0 14px;color:#a9bac6;font-size:11px;line-height:1.45}
+.game-over-modal{box-shadow:0 0 40px rgba(240,68,82,.18)!important}
+.impact-grid--final strong{font-size:15px}
+@media(max-width:1050px){.decision-game-hud{width:100%;margin-left:0}.decision-game-hud>span{flex:1;min-width:0}}
+
+
+/* ===== Revisão v64 - layout compacto e mapa ampliável ===== */
+.cco-header{height:44px!important;padding:0 16px!important}
+.brand-block--inline{width:100%;display:flex!important;flex-direction:row!important;align-items:baseline;gap:10px;white-space:nowrap;overflow:hidden}
+.brand-block--inline h1{flex:0 0 auto;font-size:15px!important}
+.brand-block--inline .subtitle{overflow:hidden;text-overflow:ellipsis;font-size:10.5px!important}
+.brand-separator,.panel-title-separator{color:#49616f;font-size:10px}
+.panel-title-row--inline{display:flex!important;flex-direction:row!important;align-items:baseline;gap:7px;margin-bottom:8px!important;white-space:nowrap}
+.panel-title-row--inline .panel-kicker,.panel-title-row--inline strong{display:inline!important;margin:0!important;line-height:1!important}
+.panel-title-row--inline .panel-kicker{font-size:8.5px!important}
+.panel-title-row--inline strong{font-size:10.5px!important}
+.cco-main{height:calc(100vh - 151px)!important;grid-template-columns:270px minmax(0,1fr)!important}
+.event-console{padding:9px!important;gap:8px!important}
+.console-summary,.event-feed{padding:9px!important}
+.synoptic-panel{position:relative!important;display:block!important;min-width:0;min-height:0;padding:8px!important;overflow:hidden}
+.synoptic-viewport{position:relative;width:100%;height:100%;min-height:0;overflow:hidden;background:#000;border:1px solid #1d272f;cursor:grab;touch-action:none;user-select:none}
+.synoptic-viewport.is-panning{cursor:grabbing}
+.synoptic-viewport:fullscreen{width:100vw;height:100vh;background:#000;padding:10px}
+#cco-realista-svg{display:block;width:100%!important;height:100%!important;max-height:none!important;border:0!important;background:#000}
+.map-toolbar{position:absolute;z-index:20;top:16px;right:16px;display:flex;align-items:center;gap:4px;padding:4px;background:rgba(3,7,11,.94);border:1px solid #334552;box-shadow:0 4px 18px rgba(0,0,0,.4)}
+.map-toolbar button{height:28px;min-width:30px;padding:0 9px;border:1px solid #3b5060;background:#0a1219;color:#eaf5fb;font:700 10px Consolas,monospace;cursor:pointer}
+.map-toolbar button:hover{border-color:#20e878;color:#20e878;background:#0d1b18}
+#map-zoom-level{min-width:49px;color:#9fc4da;font:700 10px Consolas,monospace;text-align:center}
+@media(max-width:900px){.brand-block--inline .subtitle,.brand-separator{display:none}.cco-main{grid-template-columns:1fr!important;height:auto!important}.synoptic-panel{min-height:560px}.map-toolbar{top:13px;right:13px}.map-toolbar button{padding:0 7px}}

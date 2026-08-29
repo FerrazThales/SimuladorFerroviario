@@ -4,83 +4,102 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulador de Elementos Ferroviários</title>
-  <link rel="stylesheet" href="./css/cco.css?v=56">
+  <link rel="stylesheet" href="./css/cco.css?v=64">
 </head>
 <body>
 <header class="cco-header">
-  <div class="brand-block">
+  <div class="brand-block brand-block--inline">
     <h1>Simulador de Elementos Ferroviários</h1>
+    <span class="brand-separator" aria-hidden="true">•</span>
     <span class="subtitle">Ferramenta pessoal para visualizar e estudar elementos da ferrovia</span>
   </div>
 </header>
 
-<section class="operation-hub" aria-label="Modos de operacao">
+<section class="operation-hub" aria-label="Modos de operação">
   <nav class="mode-tabs" role="tablist" aria-label="Modos do simulador">
-    <button type="button" class="mode-tab active" data-mode-tab="cenarios" role="tab" aria-selected="true">Cenarios</button>
-    <button type="button" class="mode-tab" data-mode-tab="decisao" role="tab" aria-selected="false">Modo Decisao</button>
-    <button type="button" class="mode-tab" data-mode-tab="livre" role="tab" aria-selected="false">Operacao Personalizada</button>
+    <button type="button" class="mode-tab active" data-mode-tab="cenarios" role="tab" aria-selected="true">Cenários</button>
+    <button type="button" class="mode-tab" data-mode-tab="decisao" role="tab" aria-selected="false">Modo Decisão</button>
+    <button type="button" class="mode-tab" data-mode-tab="livre" role="tab" aria-selected="false">Operação Personalizada</button>
   </nav>
 
   <div class="mode-panel active" data-mode-panel="cenarios">
     <label class="operation-field operation-field--wide">
-      <span>Escolha um cenario</span>
+      <span>Escolha um cenário</span>
       <select id="scenario-select">
         <option value="">Selecione...</option>
         <option value="cruzamento">Encontro de trens</option>
         <option value="ultrapassagem">Linha dupla</option>
         <option value="falha_amv">Falha AMV</option>
         <option value="pera">Retorno pera</option>
-        <option value="saida_patio">Saida patio livre</option>
-        <option value="terminal">Manobra Patio B</option>
-        <option value="manutencao">Janela manutencao</option>
+        <option value="saida_patio">Saída pátio livre</option>
+        <option value="terminal">Manobra Pátio B</option>
+        <option value="manutencao">Janela manutenção</option>
         <option value="comboio_longo">Comboio longo</option>
         <option value="fila_terminal">Fila de recebimento no terminal</option>
-        <option value="cruzamento_patio_b">Cruzamento e manobra no Patio B</option>
-        <option value="circulacao_paralela">Circulacao paralela de cargas</option>
-        <option value="regulacao_pera">Regulacao pela pera operacional</option>
+        <option value="cruzamento_patio_b">Cruzamento e manobra no Pátio B</option>
+        <option value="circulacao_paralela">Circulação paralela de cargas</option>
+        <option value="regulacao_pera">Regulação pela pera operacional</option>
+        <option value="linha1_interditada">Linha 1 interditada, circulação pela Linha 2</option>
+        <option value="linha2_interditada">Linha 2 interditada, circulação pela Linha 1</option>
+        <option value="estacionamento_patio_a">Estacionamento técnico no Pátio A</option>
+        <option value="prioridade_principal">Prioridade da linha principal no Pátio A</option>
+        <option value="manobra_com_passagem">Manobra no Pátio B com passagem na principal</option>
+        <option value="conflito_rotas">Sinalização: conflito entre rotas</option>
+        <option value="bloco_ocupado">Sinalização: bloco ocupado impede autorização</option>
+        <option value="travamento_aproximacao">Sinalização: travamento de aproximação</option>
+        <option value="liberacao_sequencial">Sinalização: liberação sequencial da rota</option>
+        <option value="falha_deteccao_via">Sinalização: falha na detecção de via</option>
+        <option value="perda_deteccao_amv">Sinalização: perda de detecção do AMV</option>
+        <option value="protecao_sobreposicao">Sinalização: proteção além do sinal</option>
       </select>
     </label>
-    <button type="button" class="operation-primary" id="run-scenario">Iniciar cenario</button>
+    <button type="button" class="operation-primary" id="run-scenario">Iniciar cenário</button>
     <button type="button" class="operation-secondary" data-action="reset">Resetar</button>
   </div>
 
   <div class="mode-panel" data-mode-panel="decisao">
     <label class="operation-field operation-field--wide">
-      <span>Escolha uma missao</span>
+      <span>Escolha uma missão</span>
       <select id="mission-select">
         <option value="">Selecione...</option>
-        <option value="cruzamento_decisao">Missao 1 - Encontro operacional no Patio A</option>
-        <option value="prioridade_exportacao">Missao 2 - Prioridade de exportacao</option>
-        <option value="falha_amv_decisao">Missao 3 - Falha de AMV e contingencia</option>
-        <option value="janela_manutencao_decisao">Missao 4 - Janela de manutencao</option>
-        <option value="fila_terminal_decisao">Missao 5 - Fila no terminal</option>
+        <option value="cruzamento_decisao">Missão 1 - Encontro operacional no Pátio A</option>
+        <option value="prioridade_exportacao">Missão 2 - Prioridade de exportação</option>
+        <option value="falha_amv_decisao">Missão 3 - Falha de AMV e contingência</option>
+        <option value="janela_manutencao_decisao">Missão 4 - Janela de manutenção</option>
+        <option value="fila_terminal_decisao">Missão 5 - Fila no terminal</option>
       </select>
     </label>
-    <button type="button" class="operation-primary" id="run-mission">Iniciar missao</button>
-    <button type="button" class="operation-secondary" data-action="reset-missao">Resetar missao</button>
+    <button type="button" class="operation-primary" id="run-mission">Iniciar missão</button>
+    <button type="button" class="operation-secondary" data-action="reset-missao">Resetar missão</button>
+    <div class="decision-game-hud" aria-label="Progresso da missão">
+      <span><small>Pontuação</small><strong id="game-score">100</strong></span>
+      <span><small>Segurança</small><strong id="game-safety">100%</strong></span>
+      <span><small>Vidas</small><strong id="game-lives">3</strong></span>
+      <span><small>Sequência</small><strong id="game-streak">0</strong></span>
+    </div>
   </div>
 
   <div class="mode-panel mode-panel--custom" data-mode-panel="livre">
     <div class="custom-intro">
-      <strong>Operacao Personalizada</strong>
-      <span>Configure dois trens, velocidade e rota. O despacho so comeca quando voce clicar em iniciar.</span>
+      <strong>Operação Personalizada</strong>
+      <span>Configure dois trens, velocidade e rota. O despacho só comeca quando você clicar em iniciar.</span>
     </div>
     <div class="custom-trains-grid">
       <fieldset class="custom-train-card">
         <legend>Trem 1</legend>
         <label class="operation-field"><span>Nome do trem</span><input id="custom-train-1-name" type="text" value="T201" maxlength="12"></label>
-        <label class="operation-field"><span>Velocidade</span><select id="custom-train-1-speed"><option value="0.70">Lenta</option><option value="1" selected>Normal</option><option value="1.30">Rapida</option></select></label>
+        <label class="operation-field"><span>Velocidade</span><select id="custom-train-1-speed"><option value="0.70">Lenta</option><option value="1" selected>Normal</option><option value="1.30">Rápida</option></select></label>
         <label class="operation-field operation-field--wide"><span>Rota</span><select id="custom-train-1-route"></select></label>
       </fieldset>
       <fieldset class="custom-train-card">
         <legend>Trem 2</legend>
         <label class="operation-field"><span>Nome do trem</span><input id="custom-train-2-name" type="text" value="T301" maxlength="12"></label>
-        <label class="operation-field"><span>Velocidade</span><select id="custom-train-2-speed"><option value="0.70">Lenta</option><option value="1" selected>Normal</option><option value="1.30">Rapida</option></select></label>
+        <label class="operation-field"><span>Velocidade</span><select id="custom-train-2-speed"><option value="0.70">Lenta</option><option value="1" selected>Normal</option><option value="1.30">Rápida</option></select></label>
         <label class="operation-field operation-field--wide"><span>Rota</span><select id="custom-train-2-route"></select></label>
       </fieldset>
     </div>
     <div class="custom-actions">
-      <button type="button" class="operation-primary" id="run-custom-operation">Iniciar operacao</button>
+      <button type="button" class="operation-primary" id="run-custom-operation">Iniciar operação</button>
       <button type="button" class="operation-secondary" id="reset-custom-operation">Limpar</button>
       <span id="custom-operation-message" role="status" aria-live="polite"></span>
     </div>
@@ -89,8 +108,9 @@
 <main class="cco-main">
   <aside class="event-console" aria-label="Eventos operacionais">
     <div class="console-summary">
-      <div class="panel-title-row">
+      <div class="panel-title-row panel-title-row--inline">
         <span class="panel-kicker">Painel operacional</span>
+        <span class="panel-title-separator" aria-hidden="true">•</span>
         <strong>Estados da malha</strong>
       </div>
       <div class="state-dashboard">
@@ -115,150 +135,95 @@
     </div>
   </aside>
 <section class="synoptic-panel">
-<svg id="cco-realista-svg" viewBox="0 0 1800 850" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <filter id="glow-soft-green" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <filter id="glow-soft-red" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation=".9" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-  </defs>
-  <text x="900" y="30" text-anchor="middle" style="fill:#fff;font-size:18px;font-weight:bold;letter-spacing:1px">SIMULADOR FERROVIÁRIO</text>
-  <text x="900" y="50" text-anchor="middle" style="fill:#aaa;font-size:11px">Visualização de linhas, pátios, AMVs, sinais, sensores e rotas ferroviárias</text>
+<div class="map-toolbar" role="group" aria-label="Controles de visualização do mapa">
+  <button type="button" id="map-zoom-out" title="Diminuir zoom" aria-label="Diminuir zoom">−</button>
+  <span id="map-zoom-level" aria-live="polite">100%</span>
+  <button type="button" id="map-zoom-in" title="Aumentar zoom" aria-label="Aumentar zoom">+</button>
+  <button type="button" id="map-zoom-reset" title="Restaurar visualização" aria-label="Restaurar visualização">Ajustar</button>
+  <button type="button" id="map-fullscreen" title="Abrir mapa em tela cheia" aria-label="Abrir mapa em tela cheia">Tela cheia</button>
+</div>
+<div class="synoptic-viewport" id="synoptic-viewport">
+<svg id="cco-realista-svg" viewBox="0 0 1800 820" xmlns="http://www.w3.org/2000/svg">
+  <defs><filter id="glow-soft-green"><feGaussianBlur stdDeviation="1"/></filter><filter id="glow-soft-red"><feGaussianBlur stdDeviation="1"/></filter></defs>
+  <text x="900" y="28" class="synoptic-main-title">DIAGRAMA SINÓPTICO FERROVIÁRIO</text>
+  <text x="900" y="47" class="synoptic-subtitle">CORREDOR PRINCIPAL • PÁTIOS • AMVs • CIRCUITOS DE VIA • SINAIS</text>
+  <g id="panel-reference-layer"><text class="area-code" x="95" y="78">SETOR OESTE</text><text class="area-code" x="1590" y="78">SETOR LESTE</text><line class="panel-divider" x1="1210" y1="65" x2="1210" y2="735"/><text class="panel-divider-label" x="1222" y="84">LIMITE DE ÁREA</text></g>
   <g id="track-base-layer">
-    <line class="track-base" x1="90" y1="130" x2="1710" y2="130"/>
-    <line class="track-base" x1="90" y1="230" x2="1710" y2="230"/>
-    <line class="track-base" x1="520" y1="330" x2="1120" y2="330"/>
-    <line class="track-base" x1="680" y1="370" x2="1120" y2="370"/>
-    <line class="track-base" x1="760" y1="410" x2="1120" y2="410"/>
-    <line class="track-base" x1="1400" y1="330" x2="1660" y2="330"/>
-    <line class="track-base" x1="1440" y1="370" x2="1660" y2="370"/>
-    <line class="track-base" x1="1480" y1="410" x2="1660" y2="410"/>
-    <line class="track-base" x1="1520" y1="450" x2="1660" y2="450"/>
-    <path class="track-base" d="M 520 610 L 620 690 L 1120 690"/>
-    <path class="track-base" d="M 1120 690 L 1420 690 L 1620 230"/>
+    <line class="track-base" x1="90" y1="180" x2="1710" y2="180"/><line class="track-base" x1="90" y1="300" x2="1710" y2="300"/>
+    <line class="track-base" x1="520" y1="390" x2="1080" y2="390"/><line class="track-base" x1="600" y1="440" x2="1040" y2="440"/><line class="track-base" x1="650" y1="490" x2="1050" y2="490"/>
+    <line class="track-base" x1="1400" y1="390" x2="1660" y2="390"/><line class="track-base" x1="1440" y1="435" x2="1660" y2="435"/><line class="track-base" x1="1480" y1="480" x2="1660" y2="480"/><line class="track-base" x1="1520" y1="525" x2="1660" y2="525"/>
+    <path class="track-base" d="M 520 610 L 620 690 L 1380 690 L 1480 610 L 1560 540 L 1620 300"/>
   </g>
-  <g id="track-segments">
-    <line id="SEG-L1-B01" class="segment" x1="90" y1="130" x2="270" y2="130"/><text class="block-label" x="180" y="116">L1-B01</text>
-    <line id="SEG-L1-B02" class="segment" x1="270" y1="130" x2="450" y2="130"/><text class="block-label" x="360" y="116">L1-B02</text>
-    <line id="SEG-L1-B03" class="segment" x1="450" y1="130" x2="630" y2="130"/><text class="block-label" x="540" y="116">L1-B03</text>
-    <line id="SEG-L1-B04" class="segment" x1="630" y1="130" x2="810" y2="130"/><text class="block-label" x="720" y="116">L1-B04</text>
-    <line id="SEG-L1-B05" class="segment" x1="810" y1="130" x2="990" y2="130"/><text class="block-label" x="900" y="116">L1-B05</text>
-    <line id="SEG-L1-B06" class="segment" x1="990" y1="130" x2="1170" y2="130"/><text class="block-label" x="1080" y="116">L1-B06</text>
-    <line id="SEG-L1-B07" class="segment" x1="1170" y1="130" x2="1350" y2="130"/><text class="block-label" x="1260" y="116">L1-B07</text>
-    <line id="SEG-L1-B08" class="segment" x1="1350" y1="130" x2="1530" y2="130"/><text class="block-label" x="1440" y="116">L1-B08</text>
-    <line id="SEG-L1-B09" class="segment" x1="1530" y1="130" x2="1710" y2="130"/><text class="block-label" x="1620" y="116">L1-B09</text>
-
-    <line id="SEG-L2-B01" class="segment" x1="90" y1="230" x2="270" y2="230"/><text class="block-label" x="180" y="216">L2-B01</text>
-    <line id="SEG-L2-B02" class="segment" x1="270" y1="230" x2="450" y2="230"/><text class="block-label" x="360" y="216">L2-B02</text>
-    <line id="SEG-L2-B03" class="segment" x1="450" y1="230" x2="630" y2="230"/><text class="block-label" x="540" y="216">L2-B03</text>
-    <line id="SEG-L2-B04" class="segment" x1="630" y1="230" x2="810" y2="230"/><text class="block-label" x="720" y="216">L2-B04</text>
-    <line id="SEG-L2-B05" class="segment" x1="810" y1="230" x2="990" y2="230"/><text class="block-label" x="900" y="216">L2-B05</text>
-    <line id="SEG-L2-B06" class="segment" x1="990" y1="230" x2="1170" y2="230"/><text class="block-label" x="1080" y="216">L2-B06</text>
-    <line id="SEG-L2-B07" class="segment" x1="1170" y1="230" x2="1350" y2="230"/><text class="block-label" x="1260" y="216">L2-B07</text>
-    <line id="SEG-L2-B08" class="segment" x1="1350" y1="230" x2="1530" y2="230"/><text class="block-label" x="1440" y="216">L2-B08</text>
-    <line id="SEG-L2-B09" class="segment" x1="1530" y1="230" x2="1710" y2="230"/><text class="block-label" x="1620" y="216">L2-B09</text>
-
-    <line id="SEG-PA1-B01" class="segment" x1="520" y1="330" x2="820" y2="330"/><text class="block-label" x="670" y="316">PA1-B01</text>
-    <line id="SEG-PA1-B02" class="segment" x1="820" y1="330" x2="1120" y2="330"/><text class="block-label" x="970" y="316">PA1-B02</text>
-    <line id="SEG-PA2-B01" class="segment" x1="680" y1="370" x2="900" y2="370"/><text class="block-label" x="790" y="356">PA2-B01</text>
-    <line id="SEG-PA2-B02" class="segment" x1="900" y1="370" x2="1120" y2="370"/><text class="block-label" x="1010" y="356">PA2-B02</text>
-    <line id="SEG-PA3-B01" class="segment" x1="760" y1="410" x2="940" y2="410"/><text class="block-label" x="850" y="396">PA3-B01</text>
-    <line id="SEG-PA3-B02" class="segment" x1="940" y1="410" x2="1120" y2="410"/><text class="block-label" x="1030" y="396">PA3-B02</text>
-
-    <line id="SEG-PB1-B01" class="segment" x1="1400" y1="330" x2="1660" y2="330"/><text class="block-label" x="1530" y="316">PB1-B01</text>
-    <line id="SEG-PB2-B01" class="segment" x1="1440" y1="370" x2="1660" y2="370"/><text class="block-label" x="1550" y="356">PB2-B01</text>
-    <line id="SEG-PB3-B01" class="segment" x1="1480" y1="410" x2="1660" y2="410"/><text class="block-label" x="1570" y="396">PB3-B01</text>
-    <line id="SEG-PB4-B01" class="segment" x1="1520" y1="450" x2="1660" y2="450"/><text class="block-label" x="1590" y="436">PB4-B01</text>
-
-
-    <!-- Segmentos reversos da Linha 2 para cenarios de cruzamento em sentido contrario -->
-    <line id="SEG-L2-B04-R" class="segment reverse-segment" x1="810" y1="230" x2="630" y2="230"/><text class="block-label reverse-label" x="720" y="246">L2-B04-R</text>
-    <line id="SEG-L2-B05-R" class="segment reverse-segment" x1="990" y1="230" x2="810" y2="230"/><text class="block-label reverse-label" x="900" y="246">L2-B05-R</text>
-    <line id="SEG-L2-B06-R" class="segment reverse-segment" x1="1170" y1="230" x2="990" y2="230"/><text class="block-label reverse-label" x="1080" y="246">L2-B06-R</text>
-    <line id="SEG-L2-B07-R" class="segment reverse-segment" x1="1350" y1="230" x2="1170" y2="230"/><text class="block-label reverse-label" x="1260" y="246">L2-B07-R</text>
-    <line id="SEG-L2-B08-R" class="segment reverse-segment" x1="1530" y1="230" x2="1350" y2="230"/><text class="block-label reverse-label" x="1440" y="246">L2-B08-R</text>
-    <line id="SEG-L2-B09-R" class="segment reverse-segment" x1="1710" y1="230" x2="1530" y2="230"/><text class="block-label reverse-label" x="1620" y="246">L2-B09-R</text>
-    <path id="SEG-PERA-B01" class="segment" d="M 520 610 L 620 690 L 1120 690"/><text class="block-label" x="820" y="676">PERA-B01</text>
-    <path id="SEG-PERA-B02" class="segment" d="M 1120 690 L 1420 690 L 1500 610"/><text class="block-label" x="1280" y="676">PERA-B02</text>
-    <path id="SEG-PERA-B03" class="segment" d="M 1500 610 L 1580 530 L 1620 230"/><text class="block-label" x="1570" y="500">PERA-B03</text>
-  </g>
+  <g id="track-segments"><line id="SEG-L1-B01" class="segment" x1="90" y1="180" x2="270" y2="180"/><text class="block-label" x="180" y="166">L1-B01</text>
+    <line id="SEG-L1-B02" class="segment" x1="270" y1="180" x2="450" y2="180"/><text class="block-label" x="360" y="166">L1-B02</text>
+    <line id="SEG-L1-B03" class="segment" x1="450" y1="180" x2="630" y2="180"/><text class="block-label" x="540" y="166">L1-B03</text>
+    <line id="SEG-L1-B04" class="segment" x1="630" y1="180" x2="810" y2="180"/><text class="block-label" x="720" y="166">L1-B04</text>
+    <line id="SEG-L1-B05" class="segment" x1="810" y1="180" x2="990" y2="180"/><text class="block-label" x="900" y="166">L1-B05</text>
+    <line id="SEG-L1-B06" class="segment" x1="990" y1="180" x2="1170" y2="180"/><text class="block-label" x="1080" y="166">L1-B06</text>
+    <line id="SEG-L1-B07" class="segment" x1="1170" y1="180" x2="1350" y2="180"/><text class="block-label" x="1260" y="166">L1-B07</text>
+    <line id="SEG-L1-B08" class="segment" x1="1350" y1="180" x2="1530" y2="180"/><text class="block-label" x="1440" y="166">L1-B08</text>
+    <line id="SEG-L1-B09" class="segment" x1="1530" y1="180" x2="1710" y2="180"/><text class="block-label" x="1620" y="166">L1-B09</text>
+    <line id="SEG-L2-B01" class="segment" x1="90" y1="300" x2="270" y2="300"/><text class="block-label" x="180" y="286">L2-B01</text>
+    <line id="SEG-L2-B02" class="segment" x1="270" y1="300" x2="450" y2="300"/><text class="block-label" x="360" y="286">L2-B02</text>
+    <line id="SEG-L2-B03" class="segment" x1="450" y1="300" x2="630" y2="300"/><text class="block-label" x="540" y="286">L2-B03</text>
+    <line id="SEG-L2-B04" class="segment" x1="630" y1="300" x2="810" y2="300"/><text class="block-label" x="720" y="286">L2-B04</text>
+    <line id="SEG-L2-B05" class="segment" x1="810" y1="300" x2="990" y2="300"/><text class="block-label" x="900" y="286">L2-B05</text>
+    <line id="SEG-L2-B06" class="segment" x1="990" y1="300" x2="1170" y2="300"/><text class="block-label" x="1080" y="286">L2-B06</text>
+    <line id="SEG-L2-B07" class="segment" x1="1170" y1="300" x2="1350" y2="300"/><text class="block-label" x="1260" y="286">L2-B07</text>
+    <line id="SEG-L2-B08" class="segment" x1="1350" y1="300" x2="1530" y2="300"/><text class="block-label" x="1440" y="286">L2-B08</text>
+    <line id="SEG-L2-B09" class="segment" x1="1530" y1="300" x2="1710" y2="300"/><text class="block-label" x="1620" y="286">L2-B09</text>
+    <line id="SEG-L2-B04-R" class="segment reverse-segment" x1="810" y1="300" x2="630" y2="300"/><text class="block-label" x="720" y="316">L2-B04-R</text>
+    <line id="SEG-L2-B05-R" class="segment reverse-segment" x1="990" y1="300" x2="810" y2="300"/><text class="block-label" x="900" y="316">L2-B05-R</text>
+    <line id="SEG-L2-B06-R" class="segment reverse-segment" x1="1170" y1="300" x2="990" y2="300"/><text class="block-label" x="1080" y="316">L2-B06-R</text>
+    <line id="SEG-L2-B07-R" class="segment reverse-segment" x1="1350" y1="300" x2="1170" y2="300"/><text class="block-label" x="1260" y="316">L2-B07-R</text>
+    <line id="SEG-L2-B08-R" class="segment reverse-segment" x1="1530" y1="300" x2="1350" y2="300"/><text class="block-label" x="1440" y="316">L2-B08-R</text>
+    <line id="SEG-L2-B09-R" class="segment reverse-segment" x1="1710" y1="300" x2="1530" y2="300"/><text class="block-label" x="1620" y="316">L2-B09-R</text>
+    <line id="SEG-PA1-B01" class="segment" x1="520" y1="390" x2="800" y2="390"/><text class="block-label" x="660" y="376">PA1-B01</text>
+    <line id="SEG-PA1-B02" class="segment" x1="800" y1="390" x2="1080" y2="390"/><text class="block-label" x="940" y="376">PA1-B02</text>
+    <line id="SEG-PA2-B01" class="segment" x1="600" y1="440" x2="820" y2="440"/><text class="block-label" x="710" y="426">PA2-B01</text>
+    <line id="SEG-PA2-B02" class="segment" x1="820" y1="440" x2="1040" y2="440"/><text class="block-label" x="930" y="426">PA2-B02</text>
+    <line id="SEG-PA3-B01" class="segment" x1="650" y1="490" x2="850" y2="490"/><text class="block-label" x="750" y="476">PA3-B01</text>
+    <line id="SEG-PA3-B02" class="segment" x1="850" y1="490" x2="1050" y2="490"/><text class="block-label" x="950" y="476">PA3-B02</text>
+    <line id="SEG-PB1-B01" class="segment" x1="1400" y1="390" x2="1660" y2="390"/><text class="block-label" x="1530" y="376">PB1-B01</text>
+    <line id="SEG-PB2-B01" class="segment" x1="1440" y1="435" x2="1660" y2="435"/><text class="block-label" x="1550" y="421">PB2-B01</text>
+    <line id="SEG-PB3-B01" class="segment" x1="1480" y1="480" x2="1660" y2="480"/><text class="block-label" x="1570" y="466">PB3-B01</text>
+    <line id="SEG-PB4-B01" class="segment" x1="1520" y1="525" x2="1660" y2="525"/><text class="block-label" x="1590" y="511">PB4-B01</text>
+    <path id="SEG-PERA-B01" class="segment" d="M 520 610 L 620 690 L 1080 690"/><text class="block-label" x="830" y="676">PERA-B01</text>
+    <path id="SEG-PERA-B02" class="segment" d="M 1080 690 L 1380 690 L 1480 610"/><text class="block-label" x="1250" y="676">PERA-B02</text>
+    <path id="SEG-PERA-B03" class="segment" d="M 1480 610 L 1560 540 L 1620 300"/><text class="block-label" x="1555" y="520">PERA-B03</text></g>
   <g id="amv-layer">
-    <path id="SEG-AMV-01" class="amv" d="M 360 130 L 450 230"/><text class="block-label" x="405" y="175">AMV-01</text>
-    <path id="SEG-AMV-02" class="amv" d="M 810 230 L 900 130"/><text class="block-label" x="870" y="175">AMV-02</text>
-    <path id="SEG-AMV-03" class="amv" d="M 1080 130 L 1170 230"/><text class="block-label" x="1126" y="175">AMV-03</text>
-    <path id="SEG-AMV-04" class="amv" d="M 1440 230 L 1530 130"/><text class="block-label" x="1500" y="175">AMV-04</text>
-    <path id="SEG-AMV-05" class="amv" d="M 450 230 L 520 330"/><text class="block-label" x="455" y="292">AMV-05</text>
-    <path id="SEG-AMV-06" class="amv" d="M 1120 330 L 1170 230"/><text class="block-label" x="1148" y="292">AMV-06</text>
-    <path id="SEG-AMV-07" class="amv" d="M 680 370 L 630 230"/><text class="block-label" x="650" y="315">AMV-07</text>
-    <path id="SEG-AMV-09" class="amv" d="M 1350 230 L 1400 330"/><text class="block-label" x="1215" y="380">AMV-09</text>
-    <path id="SEG-AMV-10" class="amv" d="M 1480 640 C 1510 520, 1515 370, 1530 230"/><text class="block-label" x="1510" y="438">AMV-10</text>
-    <path id="SEG-AMV-11" class="amv" d="M 450 230 L 490 310 L 490 550 L 520 610"/><text class="block-label" x="490" y="445">AMV-11</text>
-    <path id="SEG-AMV-12" class="amv" d="M 1480 640 C 1508 515, 1516 372, 1530 230"/><text class="block-label" x="1540" y="445">AMV-12</text>
+    <path id="SEG-AMV-01" class="amv" d="M 360 180 L 450 300"/><text class="block-label" x="405" y="234">01</text>
+    <path id="SEG-AMV-02" class="amv" d="M 810 300 L 900 180"/><text class="block-label" x="855" y="234">02</text>
+    <path id="SEG-AMV-03" class="amv" d="M 1080 180 L 1170 300"/><text class="block-label" x="1125" y="234">03</text>
+    <path id="SEG-AMV-04" class="amv" d="M 1440 300 L 1530 180"/><text class="block-label" x="1485" y="234">04</text>
+    <path id="SEG-AMV-05" class="amv" d="M 450 300 L 520 390"/><text class="block-label" x="480" y="346">05</text>
+    <path id="SEG-AMV-06" class="amv" d="M 1080 390 L 990 300"/><text class="block-label" x="1040" y="346">06</text>
+    <path id="SEG-AMV-07" class="amv" d="M 850 490 L 630 300"/><text class="block-label" x="735" y="392">07</text>
+    <path id="SEG-AMV-09" class="amv" d="M 1350 300 L 1400 390"/><text class="block-label" x="1373" y="346">09</text>
+    <path id="SEG-AMV-10" class="amv" d="M 1530 300 L 1660 390"/><text class="block-label" x="1595" y="338">10</text>
+    <path id="SEG-AMV-11" class="amv" d="M 450 300 L 480 360 L 480 570 L 520 610"/><text class="block-label" x="468" y="535">11</text>
+    <path id="SEG-AMV-12" class="amv" d="M 1620 300 L 1560 540 L 1480 610"/><text class="block-label" x="1585" y="475">12</text>
   </g>
+  <g id="decorative-yard-ladders" aria-hidden="true"><path class="yard-ladder" d="M 520 390 L 600 440 L 650 490 M 1080 390 L 1040 440 L 1050 490 M 1400 390 L 1440 435 L 1480 480 L 1520 525 M 1660 390 L 1660 435 L 1660 480 L 1660 525"/></g>
   <g id="station-layer">
-    <rect class="station-box" x="40" y="102" width="74" height="42"/><text class="station-text" x="77" y="128">EST A</text>
-    <rect class="station-box" x="845" y="102" width="86" height="42"/><text class="station-text" x="888" y="128">EST B</text>
-    <rect class="station-box" x="1660" y="102" width="84" height="42"/><text class="station-text" x="1702" y="128">EST F</text>
-    <rect class="station-box" x="40" y="202" width="74" height="42"/><text class="station-text" x="77" y="228">EST C</text>
-    <rect class="station-box" x="1660" y="202" width="84" height="42"/><text class="station-text" x="1702" y="228">EST D</text>
-    <rect class="station-box" x="700" y="278" width="300" height="30"/><text class="station-text" x="850" y="299">PÁTIO A - CRUZAMENTO</text>
-    <rect class="station-box" x="1380" y="278" width="280" height="30"/><text class="station-text" x="1520" y="299">PÁTIO B - MANOBRA</text>
-    <rect class="station-box" x="900" y="635" width="110" height="34"/><text class="station-text" x="955" y="657">PERA</text>
-    <rect class="station-box" x="1160" y="642" width="90" height="34"/><text class="station-text" x="1205" y="664">EST E</text>
+    <rect class="station-box" x="45" y="151" width="82" height="24"/><text class="station-text" x="86" y="167">EST A</text><rect class="station-box" x="45" y="271" width="82" height="24"/><text class="station-text" x="86" y="287">EST C</text>
+    <rect class="station-box" x="842" y="151" width="92" height="24"/><text class="station-text" x="888" y="167">EST B</text><rect class="station-box" x="1650" y="151" width="95" height="24"/><text class="station-text" x="1697" y="167">EST F</text><rect class="station-box" x="1650" y="271" width="95" height="24"/><text class="station-text" x="1697" y="287">EST D</text>
+    <text class="yard-title" x="800" y="362">PÁTIO A • CRUZAMENTO E ESTACIONAMENTO</text><text class="yard-title" x="1530" y="362">PÁTIO B • MANOBRA</text><text class="yard-title" x="1000" y="654">PÊRA DE RETORNO</text>
   </g>
-    <g id="signal-layer">
-    <g transform="translate(100,102)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-L1-01" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-L1-01</text></g>
-    <g transform="translate(450,102)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-L1-02" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-L1-02</text></g>
-    <g transform="translate(810,102)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-L1-03" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-L1-03</text></g>
-    <g transform="translate(1170,102)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-L1-04" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-L1-04</text></g>
-    <g transform="translate(1530,102)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-L1-05" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-L1-05</text></g>
-    <g transform="translate(100,202)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-L2-01" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-L2-01</text></g>
-    <g transform="translate(450,202)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-L2-02" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-L2-02</text></g>
-    <g transform="translate(810,202)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-L2-03" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-L2-03</text></g>
-    <g transform="translate(1170,202)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-L2-04" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-L2-04</text></g>
-    <g transform="translate(1530,202)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-L2-05" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-L2-05</text></g>
-    <g transform="translate(520,302)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-PA-01" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-PA-01</text></g>
-    <g transform="translate(1120,302)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-PA-02" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-PA-02</text></g>
-    <g transform="translate(1400,302)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-PB-01" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-PB-01</text></g>
-    <g transform="translate(1660,302)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-PB-02" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-PB-02</text></g>
-    <g transform="translate(520,582)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-PR-01" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-PR-01</text></g>
-    <g transform="translate(1500,582)"><line class="signal-mast" x1="0" y1="12" x2="0" y2="28"/><rect class="signal-head" x="-6" y="-10" width="12" height="20" rx="3"/><circle id="S-PR-02" class="signal-lamp" cx="0" cy="0" r="4"/><text class="signal-label" x="0" y="-15">S-PR-02</text></g>
-  </g>
-  <g id="sensor-layer"></g>
-  <script><![CDATA[
-    const sg=document.currentScript.previousElementSibling;
-    const pts=[[105,130,'S101'],[270,130,'S102'],[450,130,'S103'],[630,130,'S104'],[810,130,'S105'],[990,130,'S106'],[1170,130,'S107'],[1350,130,'S108'],[1530,130,'S109'],[105,230,'S201'],[270,230,'S202'],[450,230,'S203'],[630,230,'S204'],[810,230,'S205'],[990,230,'S206'],[1170,230,'S207'],[1350,230,'S208'],[1530,230,'S209'],[535,330,'SPA1'],[1110,330,'SPA2'],[695,370,'SPA3'],[775,410,'SPA5'],[1415,330,'SPB1'],[1455,370,'SPB3'],[1645,450,'SPB6'],[520,610,'SPR1'],[820,690,'SPR2'],[1120,690,'SPR3'],[1500,610,'SPR4']];
-    pts.forEach(p=>{ const c=document.createElementNS('http://www.w3.org/2000/svg','circle'); c.setAttribute('class','sensor'); c.setAttribute('cx',p[0]); c.setAttribute('cy',p[1]); c.setAttribute('r','4'); const t=document.createElementNS('http://www.w3.org/2000/svg','text'); t.setAttribute('class','sensor-label'); t.setAttribute('x',p[0]); t.setAttribute('y',p[1]+16); t.textContent=p[2]; sg.append(c,t); });
-  ]]></script>
-  <g id="train-layer">
-    <g id="TRAIN-T101" class="train freight-priority" transform="translate(135,130)">
-      <rect class="train-loco" x="-34" y="-12" width="68" height="24" rx="6"/>
-      <text class="train-text" x="0" y="4">T101</text>
-    </g>
-    <g id="TRAIN-T201" class="train freight-heavy" transform="translate(1630,230)">
-      <rect class="train-loco" x="-38" y="-13" width="76" height="26" rx="6"/>
-      <text class="train-text" x="0" y="4">T201</text>
-    </g>
-    <g id="TRAIN-T301" class="train freight-yard" transform="translate(670,330)">
-      <rect class="train-loco" x="-34" y="-12" width="68" height="24" rx="6"/>
-      <text class="train-text" x="0" y="4">T301</text>
-    </g>
-    <g id="TRAIN-T302" class="train freight-yard" transform="translate(790,370)">
-      <rect class="train-loco" x="-34" y="-12" width="68" height="24" rx="6"/>
-      <text class="train-text" x="0" y="4">T302</text>
-    </g>
-    <g id="TRAIN-T401" class="train freight-heavy" transform="translate(1510,330)">
-      <rect class="train-loco" x="-34" y="-12" width="68" height="24" rx="6"/>
-      <text class="train-text" x="0" y="4">T401</text>
-    </g>
-    <g id="TRAIN-T501" class="train freight-return" transform="translate(760,690)">
-      <rect class="train-loco" x="-34" y="-12" width="68" height="24" rx="6"/>
-      <text class="train-text" x="0" y="4">T501</text>
-    </g>
-  </g>
-</svg>
+  <g id="signal-layer"><g transform="translate(100,152)"><line class="signal-mast" x1="0" y1="8" x2="0" y2="22"/><rect class="signal-head" x="-5" y="-8" width="10" height="16"/><circle id="S-L1-01" class="signal-lamp" cx="0" cy="0" r="3.5"/><text class="signal-label" x="0" y="-12">S-L1-01</text></g><g transform="translate(450,152)"><line class="signal-mast" x1="0" y1="8" x2="0" y2="22"/><rect class="signal-head" x="-5" y="-8" width="10" height="16"/><circle id="S-L1-02" class="signal-lamp" cx="0" cy="0" r="3.5"/><text class="signal-label" x="0" y="-12">S-L1-02</text></g><g transform="translate(810,152)"><line class="signal-mast" x1="0" y1="8" x2="0" y2="22"/><rect class="signal-head" x="-5" y="-8" width="10" height="16"/><circle id="S-L1-03" class="signal-lamp" cx="0" cy="0" r="3.5"/><text class="signal-label" x="0" y="-12">S-L1-03</text></g><g transform="translate(1170,152)"><line class="signal-mast" x1="0" y1="8" x2="0" y2="22"/><rect class="signal-head" x="-5" y="-8" width="10" height="16"/><circle id="S-L1-04" class="signal-lamp" cx="0" cy="0" r="3.5"/><text class="signal-label" x="0" y="-12">S-L1-04</text></g><g transform="translate(1530,152)"><line class="signal-mast" x1="0" y1="8" x2="0" y2="22"/><rect class="signal-head" x="-5" y="-8" width="10" height="16"/><circle id="S-L1-05" class="signal-lamp" cx="0" cy="0" r="3.5"/><text class="signal-label" x="0" y="-12">S-L1-05</text></g><g transform="translate(100,272)"><line class="signal-mast" x1="0" y1="8" x2="0" y2="22"/><rect class="signal-head" x="-5" y="-8" width="10" height="16"/><circle id="S-L2-01" class="signal-lamp" cx="0" cy="0" r="3.5"/><text class="signal-label" x="0" y="-12">S-L2-01</text></g><g transform="translate(450,272)"><line class="signal-mast" x1="0" y1="8" x2="0" y2="22"/><rect class="signal-head" x="-5" y="-8" width="10" height="16"/><circle id="S-L2-02" class="signal-lamp" cx="0" cy="0" r="3.5"/><text class="signal-label" x="0" y="-12">S-L2-02</text></g><g transform="translate(810,272)"><line class="signal-mast" x1="0" y1="8" x2="0" y2="22"/><rect class="signal-head" x="-5" y="-8" width="10" height="16"/><circle id="S-L2-03" class="signal-lamp" cx="0" cy="0" r="3.5"/><text class="signal-label" x="0" y="-12">S-L2-03</text></g><g transform="translate(1170,272)"><line class="signal-mast" x1="0" y1="8" x2="0" y2="22"/><rect class="signal-head" x="-5" y="-8" width="10" height="16"/><circle id="S-L2-04" class="signal-lamp" cx="0" cy="0" r="3.5"/><text class="signal-label" x="0" y="-12">S-L2-04</text></g><g transform="translate(1530,272)"><line class="signal-mast" x1="0" y1="8" x2="0" y2="22"/><rect class="signal-head" x="-5" y="-8" width="10" height="16"/><circle id="S-L2-05" class="signal-lamp" cx="0" cy="0" r="3.5"/><text class="signal-label" x="0" y="-12">S-L2-05</text></g><g transform="translate(520,368)"><line class="signal-mast" x1="0" y1="8" x2="0" y2="20"/><rect class="signal-head" x="-5" y="-8" width="10" height="16"/><circle id="S-PA-01" class="signal-lamp" cx="0" cy="0" r="3.5"/><text class="signal-label" x="0" y="-12">S-PA-01</text></g><g transform="translate(1080,368)"><line class="signal-mast" x1="0" y1="8" x2="0" y2="20"/><rect class="signal-head" x="-5" y="-8" width="10" height="16"/><circle id="S-PA-02" class="signal-lamp" cx="0" cy="0" r="3.5"/><text class="signal-label" x="0" y="-12">S-PA-02</text></g><g transform="translate(1400,368)"><line class="signal-mast" x1="0" y1="8" x2="0" y2="20"/><rect class="signal-head" x="-5" y="-8" width="10" height="16"/><circle id="S-PB-01" class="signal-lamp" cx="0" cy="0" r="3.5"/><text class="signal-label" x="0" y="-12">S-PB-01</text></g><g transform="translate(1660,368)"><line class="signal-mast" x1="0" y1="8" x2="0" y2="20"/><rect class="signal-head" x="-5" y="-8" width="10" height="16"/><circle id="S-PB-02" class="signal-lamp" cx="0" cy="0" r="3.5"/><text class="signal-label" x="0" y="-12">S-PB-02</text></g><g transform="translate(520,588)"><line class="signal-mast" x1="0" y1="8" x2="0" y2="20"/><rect class="signal-head" x="-5" y="-8" width="10" height="16"/><circle id="S-PR-01" class="signal-lamp" cx="0" cy="0" r="3.5"/><text class="signal-label" x="0" y="-12">S-PR-01</text></g><g transform="translate(1480,588)"><line class="signal-mast" x1="0" y1="8" x2="0" y2="20"/><rect class="signal-head" x="-5" y="-8" width="10" height="16"/><circle id="S-PR-02" class="signal-lamp" cx="0" cy="0" r="3.5"/><text class="signal-label" x="0" y="-12">S-PR-02</text></g></g><g id="sensor-layer"></g><script><![CDATA[
+const sg=document.currentScript.previousElementSibling;const pts=[[105,180,'S101'],[270,180,'S102'],[450,180,'S103'],[630,180,'S104'],[810,180,'S105'],[990,180,'S106'],[1170,180,'S107'],[1350,180,'S108'],[1530,180,'S109'],[105,300,'S201'],[270,300,'S202'],[450,300,'S203'],[630,300,'S204'],[810,300,'S205'],[990,300,'S206'],[1170,300,'S207'],[1350,300,'S208'],[1530,300,'S209'],[535,390,'SPA1'],[1065,390,'SPA2'],[615,440,'SPA3'],[665,490,'SPA5'],[1415,390,'SPB1'],[1455,435,'SPB3'],[1645,525,'SPB6'],[520,610,'SPR1'],[820,690,'SPR2'],[1080,690,'SPR3'],[1480,610,'SPR4']];pts.forEach(p=>{const c=document.createElementNS('http://www.w3.org/2000/svg','circle');c.setAttribute('class','sensor');c.setAttribute('cx',p[0]);c.setAttribute('cy',p[1]);c.setAttribute('r','3');const t=document.createElementNS('http://www.w3.org/2000/svg','text');t.setAttribute('class','sensor-label');t.setAttribute('x',p[0]);t.setAttribute('y',p[1]+14);t.textContent=p[2];sg.append(c,t);});
+]]></script><g id="train-layer">
+<g id="TRAIN-T101" class="train freight-priority" transform="translate(135,180)"><rect class="train-loco" x="-28" y="-9" width="56" height="18"/><text class="train-text" x="0" y="3">T101</text></g>
+<g id="TRAIN-T201" class="train freight-heavy" transform="translate(1630,300)"><rect class="train-loco" x="-30" y="-9" width="60" height="18"/><text class="train-text" x="0" y="3">T201</text></g>
+<g id="TRAIN-T301" class="train freight-yard" transform="translate(660,390)"><rect class="train-loco" x="-28" y="-9" width="56" height="18"/><text class="train-text" x="0" y="3">T301</text></g>
+<g id="TRAIN-T302" class="train freight-yard" transform="translate(750,490)"><rect class="train-loco" x="-28" y="-9" width="56" height="18"/><text class="train-text" x="0" y="3">T302</text></g>
+<g id="TRAIN-T401" class="train freight-heavy" transform="translate(1500,390)"><rect class="train-loco" x="-28" y="-9" width="56" height="18"/><text class="train-text" x="0" y="3">T401</text></g>
+<g id="TRAIN-T501" class="train freight-return" transform="translate(760,690)"><rect class="train-loco" x="-28" y="-9" width="56" height="18"/><text class="train-text" x="0" y="3">T501</text></g></g></svg>
+</div>
 </section>
 
 </main>
-<script src="./js/cco.js?v=56"></script>
-<script src="./js/decisions.js?v=56"></script>
+<script src="./js/cco.js?v=64"></script>
+<script src="./js/decisions.js?v=64"></script>
 </body>
 </html>

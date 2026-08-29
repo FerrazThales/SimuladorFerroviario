@@ -20,7 +20,7 @@ const ESTADO_SEGMENTO = {
     LIVRE: 'livre',
     RESERVADO: 'reservado',
     OCUPADO: 'ocupado',
-    INDISPONIVEL: 'indisponivel',
+    INDISPONIVEL: 'indisponível',
 };
 
 const SEGMENTOS_INDISPONIVEIS_INICIAIS = new Set([
@@ -46,22 +46,22 @@ const ROUTES = {
     T101_MAIN: { trem: 'T101', nome: 'T101 pela Linha 1', segmentos: ['SEG-L1-B01','SEG-L1-B02','SEG-L1-B03','SEG-L1-B04','SEG-L1-B05','SEG-L1-B06','SEG-L1-B07','SEG-L1-B08','SEG-L1-B09'], sinais: ['S-L1-01','S-L1-02','S-L1-03','S-L1-04','S-L1-05'] },
     T201_MAIN: { trem: 'T201', nome: 'T201 cargueiro pela Linha 2', segmentos: ['SEG-L2-B01','SEG-L2-B02','SEG-L2-B03','SEG-L2-B04','SEG-L2-B05'], sinais: ['S-L2-01','S-L2-02','S-L2-03'] },
     T201_CRUZAMENTO_BLOQUEADOR: { trem: 'T201', nome: 'T201 ocupando zona de conflito L2-B07/L2-B08', segmentos: ['SEG-L2-B07','SEG-L2-B08','SEG-L2-B09'], sinais: ['S-L2-04','S-L2-05'] },
-    T301_SAIDA_PATIO_A: { trem: 'T301', nome: 'T301 saida do Patio A para Linha 2', segmentos: ['SEG-PA1-B01','SEG-PA1-B02','SEG-AMV-06','SEG-L2-B06','SEG-L2-B07'], amvs: ['SEG-AMV-06'], sinais: ['S-PA-01','S-PA-02','S-L2-04'] },
+    T301_SAIDA_PATIO_A: { trem: 'T301', nome: 'T301 saída do Pátio A para Linha 2', segmentos: ['SEG-PA1-B01','SEG-PA1-B02','SEG-AMV-06','SEG-L2-B06','SEG-L2-B07'], amvs: ['SEG-AMV-06'], sinais: ['S-PA-01','S-PA-02','S-L2-04'] },
     T302_FALHA_AMV: { trem: 'T302', nome: 'T302 tentativa bloqueada por falha de AMV-07', segmentos: ['SEG-PA3-B01','SEG-AMV-07','SEG-L2-B04'], amvs: ['SEG-AMV-07'], sinais: ['S-PA-01'] },
     T501_PERA: { trem: 'T501', nome: 'T501 retorno pela pera operacional', segmentos: ['SEG-PERA-B01','SEG-PERA-B02','SEG-PERA-B03'], amvs: ['SEG-AMV-11','SEG-AMV-12'], sinais: ['S-PR-01','S-PR-02','S-L2-05'] },
 };
 
 const ALTERNATIVE_ROUTES = {
     T301_SAIDA_PATIO_A: [
-        { nome: 'T301 alternativa: Patio A -> AMV-06 -> L2-B07', segmentos: ['SEG-PA1-B01','SEG-PA1-B02','SEG-AMV-06','SEG-L2-B07'], amvs: ['SEG-AMV-06'], sinais: ['S-PA-01','S-PA-02','S-L2-04'] },
+        { nome: 'T301 alternativa: Pátio A -> AMV-06 -> L2-B07', segmentos: ['SEG-PA1-B01','SEG-PA1-B02','SEG-AMV-06','SEG-L2-B07'], amvs: ['SEG-AMV-06'], sinais: ['S-PA-01','S-PA-02','S-L2-04'] },
     ],
 };
 
 const SCENARIOS = {
-    cruzamento: { nome: 'Cenario 1 - Cruzamento com Bloqueio', descricao: 'T201 ocupa L2-B07/L2-B08. T301 tenta sair do Patio A, encontra L2-B06 interditado e a alternativa L2-B07 ocupada.', rotas: ['T201_CRUZAMENTO_BLOQUEADOR', 'T301_SAIDA_PATIO_A'] },
-    ultrapassagem: { nome: 'Cenario 2 - Ultrapassagem com Patio', descricao: 'T201 ocupa a Linha 2 enquanto T101 circula pela Linha 1.', rotas: ['T201_MAIN', 'T101_MAIN'] },
-    falha_amv: { nome: 'Cenario 4 - Falha de AMV', descricao: 'T302 tenta sair do patio, mas AMV-07 esta indisponivel.', rotas: ['T302_FALHA_AMV'] },
-    pera: { nome: 'Cenario 6 - Retorno pela Pera', descricao: 'T501 percorre a pera operacional.', rotas: ['T501_PERA'] },
+    cruzamento: { nome: 'Cenário 1 - Cruzamento com Bloqueio', descricao: 'T201 ocupa L2-B07/L2-B08. T301 tenta sair do Pátio A, encontra L2-B06 interditado e a alternativa L2-B07 ocupada.', rotas: ['T201_CRUZAMENTO_BLOQUEADOR', 'T301_SAIDA_PATIO_A'] },
+    ultrapassagem: { nome: 'Cenário 2 - Ultrapassagem com Pátio', descricao: 'T201 ocupa a Linha 2 enquanto T101 circula pela Linha 1.', rotas: ['T201_MAIN', 'T101_MAIN'] },
+    falha_amv: { nome: 'Cenário 4 - Falha de AMV', descricao: 'T302 tenta sair do pátio, mas AMV-07 está indisponível.', rotas: ['T302_FALHA_AMV'] },
+    pera: { nome: 'Cenário 6 - Retorno pela Pera', descricao: 'T501 percorre a pera operacional.', rotas: ['T501_PERA'] },
 };
 
 const COMPRIMENTO_BLOCOS_TREM_CARGA = { T101: 1, T201: 1, T301: 1, T302: 1, T501: 1 };
@@ -102,7 +102,7 @@ function inicializarCCO() {
     inicializarTrens();
     inicializarSensores();
     resetarCenario(false);
-    registrarEvento('CCO v17 carregado - pintura unica por segmento');
+    registrarEvento('Simulador carregado - laboratorio de sinalizacao disponível');
     registrarEvento('Regra: ocupado = vermelho, reservado = amarelo, livre = verde, interditado = cinza');
 }
 
@@ -143,11 +143,11 @@ function instalarPainelDeControle() {
     controls.id = 'realista-controls';
     controls.className = 'info-box';
     controls.innerHTML = `
-        <strong>Controle de cenarios</strong><br>
-        <button class="btn-realista" data-scenario="cruzamento">Cenario 1 - Cruzamento com Bloqueio</button>
-        <button class="btn-realista" data-scenario="ultrapassagem">Cenario 2 - Ultrapassagem com Patio</button>
-        <button class="btn-realista" data-scenario="falha_amv">Cenario 4 - Falha de AMV</button>
-        <button class="btn-realista" data-scenario="pera">Cenario 6 - Retorno pela Pera</button>
+        <strong>Controle de cenários</strong><br>
+        <button class="btn-realista" data-scenario="cruzamento">Cenário 1 - Cruzamento com Bloqueio</button>
+        <button class="btn-realista" data-scenario="ultrapassagem">Cenário 2 - Ultrapassagem com Pátio</button>
+        <button class="btn-realista" data-scenario="falha_amv">Cenário 4 - Falha de AMV</button>
+        <button class="btn-realista" data-scenario="pera">Cenário 6 - Retorno pela Pera</button>
         <button class="btn-realista" data-action="reset">Resetar</button>
         <ul id="event-list" style="margin-top:10px; padding-left:17px; max-height:260px; overflow-y:auto;"></ul>
     `;
@@ -183,7 +183,7 @@ function instalarCliquesCenariosSvg() {
             const texto = textEl.textContent || '';
             if (texto.includes('Cruzamento')) iniciarCenario('cruzamento');
             else if (texto.includes('Ultrapassagem')) iniciarCenario('ultrapassagem');
-            else if (texto.includes('Saida') || texto.includes('Saída')) iniciarCenario('cruzamento');
+            else if (texto.includes('Saída') || texto.includes('Saída')) iniciarCenario('cruzamento');
             else if (texto.includes('Falha')) iniciarCenario('falha_amv');
         });
     });
@@ -311,7 +311,7 @@ function moverTremNoSegmento(route, index) {
     const segmentId = route.segmentos[index];
     const segmentEl = document.getElementById(segmentId);
     if (!segmentEl || typeof segmentEl.getTotalLength !== 'function') {
-        registrarEvento(`Erro: segmento ${segmentId} nao suporta movimento por path`);
+        registrarEvento(`Erro: segmento ${segmentId} não suporta movimento por path`);
         finalizarRota(route);
         return;
     }
@@ -409,7 +409,7 @@ function finalizarRota(route) {
     trem.segmentosOcupados = [];
     mudarStatusTrem(route.trem, 'aguardando');
 
-    registrarEvento(`${route.trem}: rota concluida`);
+    registrarEvento(`${route.trem}: rota concluída`);
 }
 
 function resetarCenario(registrar = true) {
@@ -445,7 +445,7 @@ function resetarCenario(registrar = true) {
 
     const eventList = document.getElementById('event-list');
     if (eventList) eventList.innerHTML = '';
-    if (registrar) registrarEvento('Cenario resetado');
+    if (registrar) registrarEvento('Cenário resetado');
 }
 
 function pintarSegmento(segmentId, estado) {
@@ -539,7 +539,7 @@ function velocidadeOperacional(segmentId, codigoTrem) {
 function tipoSegmento(segmentId) {
     if (segmentId.includes('AMV')) return 'amv';
     if (segmentId.includes('PERA')) return 'pera';
-    if (segmentId.includes('PA') || segmentId.includes('PB')) return 'patio';
+    if (segmentId.includes('PA') || segmentId.includes('PB')) return 'pátio';
     return 'linha';
 }
 
@@ -636,39 +636,39 @@ COMPRIMENTO_BLOCOS_TREM_CARGA.T401 = 1;
 
 ROUTES.T401_PATIO_B = {
     trem: 'T401',
-    nome: 'T401 manobra no Patio B',
+    nome: 'T401 manobra no Pátio B',
     segmentos: ['SEG-PB1-B01', 'SEG-PB2-B01', 'SEG-PB3-B01', 'SEG-PB4-B01'],
     sinais: ['S-PB-01', 'S-PB-02']
 };
 
 ROUTES.T101_JANELA_MANUTENCAO = {
     trem: 'T101',
-    nome: 'T101 desviado pela Linha 1 durante manutencao',
+    nome: 'T101 desviado pela Linha 1 durante manutenção',
     segmentos: ['SEG-L1-B01', 'SEG-L1-B02', 'SEG-L1-B03', 'SEG-L1-B04', 'SEG-L1-B05', 'SEG-L1-B06'],
     sinais: ['S-L1-01', 'S-L1-02', 'S-L1-03', 'S-L1-04']
 };
 
 SCENARIOS.saida_patio = {
-    nome: 'Cenario 3 - Saida de Patio',
-    descricao: 'T301 sai do Patio A e solicita entrada na Linha 2.',
+    nome: 'Cenário 3 - Saída de Pátio',
+    descricao: 'T301 sai do Pátio A e solicita entrada na Linha 2.',
     rotas: ['T301_SAIDA_PATIO_A']
 };
 
 SCENARIOS.terminal = {
-    nome: 'Cenario 5 - Terminal / Patio B',
-    descricao: 'T401 executa manobra no Patio B como aproximacao de terminal de carga.',
+    nome: 'Cenário 5 - Terminal / Pátio B',
+    descricao: 'T401 executa manobra no Pátio B como aproximação de terminal de carga.',
     rotas: ['T401_PATIO_B']
 };
 
 SCENARIOS.manutencao = {
-    nome: 'Cenario 7 - Janela de Manutencao',
-    descricao: 'T101 opera em desvio controlado enquanto outro trem encontra restricao no patio.',
+    nome: 'Cenário 7 - Janela de Manutenção',
+    descricao: 'T101 opera em desvio controlado enquanto outro trem encontra restrição no pátio.',
     rotas: ['T101_JANELA_MANUTENCAO', 'T302_FALHA_AMV']
 };
 
 SCENARIOS.comboio_longo = {
-    nome: 'Cenario 8 - Comboio Longo',
-    descricao: 'T201 simula trem cargueiro longo ocupando mais blocos durante a movimentacao.',
+    nome: 'Cenário 8 - Comboio Longo',
+    descricao: 'T201 simula trem cargueiro longo ocupando mais blocos durante a movimentação.',
     rotas: ['T201_MAIN']
 };
 
@@ -722,7 +722,7 @@ ROUTES.T201_LINHA2_LONGA = {
 
 ROUTES.T301_SAIDA_PATIO_LIVRE = {
     trem: 'T301',
-    nome: 'T301 saida autorizada do Patio A para Linha 2',
+    nome: 'T301 saída autorizada do Pátio A para Linha 2',
     segmentos: ['SEG-PA1-B01','SEG-PA1-B02','SEG-AMV-06','SEG-L2-B06','SEG-L2-B07'],
     amvs: ['SEG-AMV-06'],
     sinais: ['S-PA-01','S-PA-02','S-L2-04']
@@ -738,7 +738,7 @@ ROUTES.T501_PERA_COMPLETA = {
 
 ROUTES.T401_PATIO_B_LINHA1 = {
     trem: 'T401',
-    nome: 'T401 manobra em linha unica do Patio B',
+    nome: 'T401 manobra em linha única do Pátio B',
     segmentos: ['SEG-AMV-09','SEG-PB1-B01'],
     amvs: ['SEG-AMV-09'],
     sinais: ['S-PB-01']
@@ -746,56 +746,56 @@ ROUTES.T401_PATIO_B_LINHA1 = {
 
 ROUTES.T101_DESVIO_MANUTENCAO = {
     trem: 'T101',
-    nome: 'T101 desvio pela Linha 1 durante manutencao da Linha 2',
+    nome: 'T101 desvio pela Linha 1 durante manutenção da Linha 2',
     segmentos: ['SEG-L1-B01','SEG-L1-B02','SEG-L1-B03','SEG-L1-B04','SEG-L1-B05','SEG-L1-B06','SEG-L1-B07'],
     sinais: ['S-L1-01','S-L1-02','S-L1-03','S-L1-04']
 };
 
 Object.assign(SCENARIOS, {
     cruzamento: {
-        nome: 'Cenario 1 - Cruzamento bloqueado por ocupacao',
-        descricao: 'T201 ocupa L2-B07/L2-B08/L2-B09. T301 solicita saida do Patio A e deve ser bloqueado por ocupacao em L2-B07.',
+        nome: 'Cenário 1 - Cruzamento bloqueado por ocupacao',
+        descricao: 'T201 ocupa L2-B07/L2-B08/L2-B09. T301 solicita saída do Pátio A e deve ser bloqueado por ocupacao em L2-B07.',
         rotas: ['T201_CRUZAMENTO_BLOQUEADOR', 'T301_SAIDA_PATIO_LIVRE'],
         bloqueios: []
     },
     ultrapassagem: {
-        nome: 'Cenario 2 - Linha dupla / ultrapassagem operacional',
-        descricao: 'T201 circula pela Linha 2 ate L2-B05 enquanto T101 passa pela Linha 1. Nao ha uso de trecho interditado.',
+        nome: 'Cenário 2 - Linha dupla / ultrapassagem operacional',
+        descricao: 'T201 circula pela Linha 2 até L2-B05 enquanto T101 passa pela Linha 1. Não ha uso de trecho interditado.',
         rotas: ['T201_MAIN', 'T101_MAIN'],
         bloqueios: []
     },
     saida_patio: {
-        nome: 'Cenario 3 - Saida de patio autorizada',
-        descricao: 'T301 sai do Patio A para a Linha 2 com L2-B06 liberado. Este cenario deve concluir rota, nao negar por interdicao.',
+        nome: 'Cenário 3 - Saída de pátio autorizada',
+        descricao: 'T301 sai do Pátio A para a Linha 2 com L2-B06 liberado. Este cenário deve concluir rota, não negar por interdição.',
         rotas: ['T301_SAIDA_PATIO_LIVRE'],
         bloqueios: []
     },
     falha_amv: {
-        nome: 'Cenario 4 - Falha de AMV na saida do patio',
-        descricao: 'T302 tenta usar AMV-07 indisponivel. A rota deve ser negada por falha de AMV.',
+        nome: 'Cenário 4 - Falha de AMV na saída do pátio',
+        descricao: 'T302 tenta usar AMV-07 indisponível. A rota deve ser negada por falha de AMV.',
         rotas: ['T302_FALHA_AMV'],
         bloqueios: ['SEG-AMV-07']
     },
     pera: {
-        nome: 'Cenario 5 - Retorno pela pera operacional',
-        descricao: 'T501 percorre entrada, curva de pera e saida operacional pela pera.',
+        nome: 'Cenário 5 - Retorno pela pera operacional',
+        descricao: 'T501 percorre entrada, curva de pera e saída operacional pela pera.',
         rotas: ['T501_PERA_COMPLETA'],
         bloqueios: []
     },
     terminal: {
-        nome: 'Cenario 6 - Manobra coerente no Patio B',
-        descricao: 'T401 acessa uma linha do Patio B por AMV-09 e permanece em uma linha de patio, sem pular entre vias paralelas.',
+        nome: 'Cenário 6 - Manobra coerente no Pátio B',
+        descricao: 'T401 acessa uma linha do Pátio B por AMV-09 e permanece em uma linha de pátio, sem pular entre vias paralelas.',
         rotas: ['T401_PATIO_B_LINHA1'],
         bloqueios: []
     },
     manutencao: {
-        nome: 'Cenario 7 - Janela de manutencao na Linha 2',
-        descricao: 'L2-B06 fica interditado por manutencao. T101 circula pela Linha 1 como desvio operacional.',
+        nome: 'Cenário 7 - Janela de manutenção na Linha 2',
+        descricao: 'L2-B06 fica interditado por manutenção. T101 circula pela Linha 1 como desvio operacional.',
         rotas: ['T101_DESVIO_MANUTENCAO'],
         bloqueios: ['SEG-L2-B06']
     },
     comboio_longo: {
-        nome: 'Cenario 8 - Comboio longo na Linha 2',
+        nome: 'Cenário 8 - Comboio longo na Linha 2',
         descricao: 'T201 percorre a Linha 2 completa com comprimento operacional de 3 blocos.',
         rotas: ['T201_LINHA2_LONGA'],
         bloqueios: [],
@@ -861,7 +861,7 @@ function resetarCenario(registrar = true) {
 
     const eventList = document.getElementById('event-list');
     if (eventList) eventList.innerHTML = '';
-    if (registrar) registrarEvento('Cenario resetado');
+    if (registrar) registrarEvento('Cenário resetado');
 }
 
 
@@ -875,7 +875,7 @@ function resetarCenario(registrar = true) {
 
 ROUTES.T201_ENTRADA_PATIO_A_CRUZAMENTO = {
     trem: 'T201',
-    nome: 'T201 solicitando entrada no Patio A para cruzamento',
+    nome: 'T201 solicitando entrada no Pátio A para cruzamento',
     segmentos: ['SEG-L2-B06', 'SEG-AMV-06', 'SEG-PA1-B02', 'SEG-PA1-B01'],
     amvs: ['SEG-AMV-06'],
     sinais: ['S-L2-04', 'S-PA-02', 'S-PA-01']
@@ -883,14 +883,14 @@ ROUTES.T201_ENTRADA_PATIO_A_CRUZAMENTO = {
 
 ROUTES.T301_PARADO_PATIO_A = {
     trem: 'T301',
-    nome: 'T301 parado na via de cruzamento do Patio A',
+    nome: 'T301 parado na via de cruzamento do Pátio A',
     segmentos: ['SEG-PA1-B01', 'SEG-PA1-B02'],
     sinais: ['S-PA-01', 'S-PA-02']
 };
 
 SCENARIOS.cruzamento = {
-    nome: 'Cenario 1 - Cruzamento bloqueado no Patio A',
-    descricao: 'T301 esta parado ocupando PA1-B01/PA1-B02. T201 solicita entrada no Patio A para cruzamento e a rota deve ser negada porque a via de cruzamento esta ocupada.',
+    nome: 'Cenário 1 - Cruzamento bloqueado no Pátio A',
+    descricao: 'T301 está parado ocupando PA1-B01/PA1-B02. T201 solicita entrada no Pátio A para cruzamento e a rota deve ser negada porque a via de cruzamento está ocupada.',
     rotas: ['T201_ENTRADA_PATIO_A_CRUZAMENTO', 'T101_MAIN'],
     bloqueios: [],
     ocupacoesIniciais: [
@@ -916,7 +916,7 @@ function aplicarOcupacoesIniciaisDoCenario(scenario) {
             pintarSegmento(segmentId, ESTADO_SEGMENTO.OCUPADO);
         });
 
-        registrarEvento(`${ocupacao.trem}: ocupando via de cruzamento do Patio A`);
+        registrarEvento(`${ocupacao.trem}: ocupando via de cruzamento do Pátio A`);
     });
 }
 
@@ -950,22 +950,22 @@ function iniciarCenario(nomeCenario) {
 
 ROUTES.T201_PASSAGEM_CRUZAMENTO_PATIO_A = {
     trem: 'T201',
-    nome: 'T201 passagem pela Linha 2 junto ao Patio A',
+    nome: 'T201 passagem pela Linha 2 junto ao Pátio A',
     segmentos: ['SEG-L2-B05', 'SEG-L2-B06', 'SEG-L2-B07', 'SEG-L2-B08', 'SEG-L2-B09'],
     sinais: ['S-L2-03', 'S-L2-04', 'S-L2-05']
 };
 
 ROUTES.T301_SAIDA_APOS_CRUZAMENTO = {
     trem: 'T301',
-    nome: 'T301 saida do Patio A apos cruzamento',
+    nome: 'T301 saída do Pátio A após cruzamento',
     segmentos: ['SEG-PA1-B01', 'SEG-PA1-B02', 'SEG-AMV-06', 'SEG-L2-B06', 'SEG-L2-B07'],
     amvs: ['SEG-AMV-06'],
     sinais: ['S-PA-01', 'S-PA-02', 'S-L2-04']
 };
 
 SCENARIOS.cruzamento = {
-    nome: 'Cenario 1 - Cruzamento operacional no Patio A',
-    descricao: 'T301 aguarda no Patio A enquanto T201 passa pela Linha 2. Apos a passagem, T301 sai do patio para a Linha 2. Este cenario representa um cruzamento operacional realista, nao um bloqueio artificial.',
+    nome: 'Cenário 1 - Cruzamento operacional no Pátio A',
+    descricao: 'T301 aguarda no Pátio A enquanto T201 passa pela Linha 2. Após a passagem, T301 sai do pátio para a Linha 2. Este cenário representa um cruzamento operacional realista, não um bloqueio artificial.',
     bloqueios: [],
     ocupacoesIniciais: [
         { trem: 'T301', segmentos: ['SEG-PA1-B01', 'SEG-PA1-B02'], status: 'aguardando' }
@@ -994,7 +994,7 @@ function aplicarOcupacoesIniciaisDoCenario(scenario) {
             pintarSegmento(segmentId, ESTADO_SEGMENTO.OCUPADO);
         });
 
-        registrarEvento(`${ocupacao.trem}: aguardando no Patio A para cruzamento`);
+        registrarEvento(`${ocupacao.trem}: aguardando no Pátio A para cruzamento`);
     });
 }
 
@@ -1050,33 +1050,33 @@ Object.assign(TRACK_SEGMENTS, {
 
 ROUTES.T101_PRINCIPAL_OESTE_CRUZAMENTO = {
     trem: 'T101',
-    nome: 'T101 principal sentido oeste pelo Patio A',
+    nome: 'T101 principal sentido oeste pelo Pátio A',
     segmentos: ['SEG-L2-B09-R', 'SEG-L2-B08-R', 'SEG-L2-B07-R', 'SEG-L2-B06-R', 'SEG-L2-B05-R', 'SEG-L2-B04-R'],
     sinais: ['S-L2-05', 'S-L2-04', 'S-L2-03']
 };
 
 ROUTES.T301_DESVIADA_PATIO_A_CRUZAMENTO = {
     trem: 'T301',
-    nome: 'T301 desviada do Patio A aguardando cruzamento',
+    nome: 'T301 desviada do Pátio A aguardando cruzamento',
     segmentos: ['SEG-PA1-B02'],
     sinais: ['S-PA-01', 'S-PA-02']
 };
 
 ROUTES.T301_SAIDA_PATIO_A_LESTE_POS_CRUZAMENTO = {
     trem: 'T301',
-    nome: 'T301 saida leste do Patio A apos cruzamento',
+    nome: 'T301 saída leste do Pátio A após cruzamento',
     segmentos: ['SEG-AMV-06', 'SEG-L2-B07', 'SEG-L2-B08', 'SEG-L2-B09'],
     amvs: ['SEG-AMV-06'],
     sinais: ['S-PA-02', 'S-L2-04', 'S-L2-05']
 };
 
 SCENARIOS.cruzamento = {
-    nome: 'Cenario 1 - Cruzamento real no Patio A',
-    descricao: 'T301 ocupa a via desviada PA1 do Patio A e avanca lentamente pela desviada. T101 passa em sentido contrario pela Linha 2. Depois que T101 libera a principal, T301 sai pela ponta leste do patio para L2-B07/L2-B08/L2-B09.',
+    nome: 'Cenário 1 - Cruzamento real no Pátio A',
+    descricao: 'T301 ocupa a via desviada PA1 do Pátio A e avanca lentamente pela desviada. T101 passa em sentido contrário pela Linha 2. Depois que T101 libera a principal, T301 sai pela ponta leste do pátio para L2-B07/L2-B08/L2-B09.',
     bloqueios: [],
     posicoesIniciais: {
-        T101: 'translate(1660,230)',
-        T301: 'translate(820,330)'
+        T101: 'translate(1660,300)',
+        T301: 'translate(800,390)'
     },
     rotas: [
         { rota: 'T301_DESVIADA_PATIO_A_CRUZAMENTO', delay: 0 },
@@ -1197,7 +1197,7 @@ ROUTES.T101_PASSAGEM_OESTE_LINHA2 = {
 
 ROUTES.T301_SAIDA_LESTE_APOS_ENCONTRO = {
     trem: 'T301',
-    nome: 'T301 saida leste da desviada apos encontro',
+    nome: 'T301 saída leste da desviada após encontro',
     segmentos: ['SEG-AMV-06', 'SEG-L2-B07', 'SEG-L2-B08', 'SEG-L2-B09'],
     amvs: ['SEG-AMV-06'],
     sinais: ['S-PA-02', 'S-L2-04', 'S-L2-05'],
@@ -1205,12 +1205,12 @@ ROUTES.T301_SAIDA_LESTE_APOS_ENCONTRO = {
 };
 
 SCENARIOS.cruzamento = {
-    nome: 'Cenario 1 - Encontro de trens no Patio A',
-    descricao: 'T301 entra na desviada PA1 e fica aguardando. T101 passa pela Linha 2 principal em sentido contrario. Depois que a principal fica livre, T301 sai pela ponta leste do patio. Todos os movimentos reservam amarelo antes de ocupar vermelho.',
+    nome: 'Cenário 1 - Encontro de trens no Pátio A',
+    descricao: 'T301 entra na desviada PA1 e fica aguardando. T101 passa pela Linha 2 principal em sentido contrário. Depois que a principal fica livre, T301 sai pela ponta leste do pátio. Todos os movimentos reservam amarelo antes de ocupar vermelho.',
     bloqueios: [],
     posicoesIniciais: {
-        T101: 'translate(1660,230)',
-        T301: 'translate(820,330)'
+        T101: 'translate(1660,300)',
+        T301: 'translate(800,390)'
     },
     rotas: [
         { rota: 'T301_ENTRA_DESVIADA_PATIO_A', delay: 0 },
@@ -1361,7 +1361,7 @@ function finalizarRota(route) {
     trem.segmentosReservados = [];
     trem.segmentosOcupados = [];
     mudarStatusTrem(route.trem, 'aguardando');
-    registrarEvento(`${route.trem}: rota concluida`);
+    registrarEvento(`${route.trem}: rota concluída`);
 }
 
 function iniciarCenario(nomeCenario) {
@@ -1543,7 +1543,7 @@ resetarCenario = function(registrar = true) {
 const solicitarRotaOriginalV44 = solicitarRota;
 solicitarRota = function(routeName) {
     if (window.CCO_MISSAO_AGUARDANDO_DECISAO) {
-        registrarEvento(`Rota ${routeName} bloqueada: aguardando decisao do despachante.`);
+        registrarEvento(`Rota ${routeName} bloqueada: aguardando decisão do despachante.`);
         return;
     }
     return solicitarRotaOriginalV44(routeName);
@@ -1570,7 +1570,7 @@ function moverTremNoSegmento(route, index, tokenDaRota = tokenMovimentoV44) {
     const segmentId = route.segmentos[index];
     const segmentEl = document.getElementById(segmentId);
     if (!segmentEl || typeof segmentEl.getTotalLength !== 'function') {
-        registrarEvento(`Erro: segmento ${segmentId} nao suporta movimento por path`);
+        registrarEvento(`Erro: segmento ${segmentId} não suporta movimento por path`);
         finalizarRota(route);
         return;
     }
@@ -1610,13 +1610,13 @@ function moverTremNoSegmento(route, index, tokenDaRota = tokenMovimentoV44) {
 // ===== Revisao v48 - cenarios operacionais adicionais =====
 ROUTES.T201_APROXIMACAO_TERMINAL = {
     trem: 'T201',
-    nome: 'T201 aproximacao controlada ao terminal pela Linha 2',
+    nome: 'T201 aproximação controlada ao terminal pela Linha 2',
     segmentos: ['SEG-L2-B04','SEG-L2-B05','SEG-L2-B06','SEG-L2-B07','SEG-L2-B08'],
     sinais: ['S-L2-03','S-L2-04','S-L2-05']
 };
 ROUTES.T401_RECOLHIMENTO_PATIO_B = {
     trem: 'T401',
-    nome: 'T401 recolhimento de composicao no Patio B',
+    nome: 'T401 recolhimento de composição no Pátio B',
     segmentos: ['SEG-AMV-09','SEG-PB1-B01'],
     amvs: ['SEG-AMV-09'],
     sinais: ['S-PB-01']
@@ -1636,8 +1636,8 @@ ROUTES.T201_CARGA_LINHA2 = {
 
 Object.assign(SCENARIOS, {
     fila_terminal: {
-        nome: 'Cenario 9 - Fila de recebimento no terminal',
-        descricao: 'T401 executa recolhimento no Patio B enquanto T201 se aproxima pela Linha 2. O cenario representa regulacao de chegada e ocupacao temporaria da area de terminal.',
+        nome: 'Cenário 9 - Fila de recebimento no terminal',
+        descricao: 'T401 executa recolhimento no Pátio B enquanto T201 se aproxima pela Linha 2. O cenário representa regulação de chegada e ocupacao temporaria da área de terminal.',
         bloqueios: [],
         rotas: [
             { rota: 'T401_RECOLHIMENTO_PATIO_B', delay: 0 },
@@ -1645,8 +1645,8 @@ Object.assign(SCENARIOS, {
         ]
     },
     cruzamento_patio_b: {
-        nome: 'Cenario 10 - Cruzamento e manobra no Patio B',
-        descricao: 'T401 realiza manobra protegida no Patio B enquanto T101 circula pela Linha 1, mantendo independencia entre linha principal e patio.',
+        nome: 'Cenário 10 - Cruzamento e manobra no Pátio B',
+        descricao: 'T401 realiza manobra protegida no Pátio B enquanto T101 circula pela Linha 1, mantendo independência entre linha principal e pátio.',
         bloqueios: [],
         rotas: [
             { rota: 'T401_RECOLHIMENTO_PATIO_B', delay: 0 },
@@ -1654,7 +1654,7 @@ Object.assign(SCENARIOS, {
         ]
     },
     circulacao_paralela: {
-        nome: 'Cenario 11 - Circulacao paralela de cargas',
+        nome: 'Cenário 11 - Circulação paralela de cargas',
         descricao: 'T101 e T201 circulam simultaneamente em linhas independentes, simulando aproveitamento de capacidade da linha dupla.',
         bloqueios: [],
         rotas: [
@@ -1663,7 +1663,7 @@ Object.assign(SCENARIOS, {
         ]
     },
     regulacao_pera: {
-        nome: 'Cenario 12 - Regulacao pela pera operacional',
+        nome: 'Cenário 12 - Regulação pela pera operacional',
         descricao: 'T501 percorre a pera para recomposicao operacional enquanto T201 aguarda e depois avanca pela Linha 2.',
         bloqueios: [],
         rotas: [
@@ -1677,21 +1677,21 @@ Object.assign(SCENARIOS, {
 const ROTAS_PERSONALIZADAS_V46 = {
     T101: [
         ['T101_MAIN','Linha 1 completa'],
-        ['T101_INTERMODAL_LINHA1_JANELA','Linha 1 ate janela comercial'],
+        ['T101_INTERMODAL_LINHA1_JANELA','Linha 1 até janela comercial'],
         ['T101_PASSAGEM_OESTE_LINHA2','Linha 2 sentido oeste'],
     ],
     T201: [
-        ['T201_MAIN','Linha 2 ate B05'],
-        ['T201_PASSAGEM_PATIO_A_GRAOS','Linha 2 junto ao Patio A'],
+        ['T201_MAIN','Linha 2 até B05'],
+        ['T201_PASSAGEM_PATIO_A_GRAOS','Linha 2 junto ao Pátio A'],
         ['T201_LINHA2_LONGA','Linha 2 completa'],
-        ['T201_APROXIMACAO_TERMINAL','Aproximacao ao terminal'],
+        ['T201_APROXIMACAO_TERMINAL','Aproximação ao terminal'],
     ],
     T301: [
-        ['T301_SAIDA_LESTE_APOS_ENCONTRO','Patio A para leste'],
-        ['T301_SAIDA_PATIO_LIVRE','Saida livre do Patio A'],
+        ['T301_SAIDA_LESTE_APOS_ENCONTRO','Pátio A para leste'],
+        ['T301_SAIDA_PATIO_LIVRE','Saída livre do Pátio A'],
     ],
-    T302: [['T302_FALHA_AMV','Patio A via AMV-07']],
-    T401: [['T401_PATIO_B_LINHA1','Manobra Patio B'],['T401_RECOLHIMENTO_PATIO_B','Recolhimento no Patio B']],
+    T302: [['T302_FALHA_AMV','Pátio A via AMV-07']],
+    T401: [['T401_PATIO_B_LINHA1','Manobra Pátio B'],['T401_RECOLHIMENTO_PATIO_B','Recolhimento no Pátio B']],
     T501: [['T501_PERA_COMPLETA','Pera operacional completa']],
 };
 
@@ -1717,8 +1717,8 @@ function prepararRotaPersonalizadaV46(indice){
     const rotaId=document.getElementById(`custom-train-${indice}-route`)?.value;
     const fator=Number(document.getElementById(`custom-train-${indice}-speed`)?.value||1);
     const route=ROUTES[rotaId];
-    if(!nome||!route)return {erro:`Trem ${indice}: informe um trem e uma rota valida.`};
-    if(!trainState[nome])return {erro:`Trem ${indice}: ${nome} nao existe no sinoptico.`};
+    if(!nome||!route)return {erro:`Trem ${indice}: informe um trem e uma rota válida.`};
+    if(!trainState[nome])return {erro:`Trem ${indice}: ${nome} não existe no sinoptico.`};
     if(route.trem!==nome)return {erro:`Trem ${indice}: a rota escolhida pertence ao ${route.trem}.`};
     return {nome,rotaId,fator};
 }
@@ -1733,7 +1733,7 @@ function iniciarOperacaoPersonalizadaV46(){
     window.CCO_MISSAO_AGUARDANDO_DECISAO=false;
     FATOR_VELOCIDADE_TREM[t1.nome]=t1.fator;
     FATOR_VELOCIDADE_TREM[t2.nome]=t2.fator;
-    if(mensagem)mensagem.textContent='Operacao iniciada.';
+    if(mensagem)mensagem.textContent='Operação iniciada.';
     solicitarRota(t1.rotaId);
     const timer=setTimeout(()=>solicitarRota(t2.rotaId),600);
     activeTimers.push(timer);
@@ -1753,19 +1753,19 @@ if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',in
 // ===== Revisao v53 - cenario de falha de AMV com contingencia =====
 ROUTES.T302_SAIDA_APOS_REPARO_AMV07 = {
     trem: 'T302',
-    nome: 'T302 saida do Patio A apos normalizacao do AMV-07',
+    nome: 'T302 saída do Pátio A após normalizacao do AMV-07',
     segmentos: ['SEG-AMV-07', 'SEG-L2-B04', 'SEG-L2-B05'],
     amvs: ['SEG-AMV-07'],
     sinais: ['S-PA-01', 'S-L2-03']
 };
 
 SCENARIOS.falha_amv = {
-    nome: 'Cenario 4 - Falha de AMV e contingencia operacional',
-    descricao: 'T302 aguarda no Patio A porque o AMV-07 perdeu confirmacao. A Linha 1 permanece disponivel para o T101. Depois da verificacao e normalizacao do aparelho, o T302 recebe autorizacao para sair do patio.',
+    nome: 'Cenário 4 - Falha de AMV e contingência operacional',
+    descricao: 'T302 aguarda no Pátio A porque o AMV-07 perdeu confirmação. A Linha 1 permanece disponível para o T101. Depois da verificacao e normalizacao do aparelho, o T302 recebe autorização para sair do pátio.',
     bloqueios: ['SEG-AMV-07'],
     posicoesIniciais: {
-        T302: 'translate(680,370)',
-        T101: 'translate(135,130)'
+        T302: 'translate(750,490)',
+        T101: 'translate(135,180)'
     },
     rotas: []
 };
@@ -1782,17 +1782,17 @@ iniciarCenario = function(nomeCenario) {
 
     mudarStatusTrem('T302', 'bloqueado');
     registrarEvento(`Iniciando ${scenario.nome}`);
-    registrarEvento('AMV-07 sem confirmacao de posicao. Rota do T302 temporariamente bloqueada.');
-    registrarEvento('T302 mantido no Patio A em condicao de espera segura.');
+    registrarEvento('AMV-07 sem confirmação de posição. Rota do T302 temporariamente bloqueada.');
+    registrarEvento('T302 mantido no Pátio A em condicao de espera segura.');
 
     const liberarLinha1 = setTimeout(() => {
-        registrarEvento('Linha 1 verificada livre. T101 autorizado a circular durante a contingencia.');
+        registrarEvento('Linha 1 verificada livre. T101 autorizado a circular durante a contingência.');
         solicitarRota('T101_EXPRESSO_LINHA1');
     }, 900);
     activeTimers.push(liberarLinha1);
 
     const iniciarInspecao = setTimeout(() => {
-        registrarEvento('Equipe de manutencao iniciou verificacao do AMV-07.');
+        registrarEvento('Equipe de manutenção iniciou verificacao do AMV-07.');
     }, 3000);
     activeTimers.push(iniciarInspecao);
 
@@ -1805,9 +1805,327 @@ iniciarCenario = function(nomeCenario) {
         }
         pintarSegmento('SEG-AMV-07', ESTADO_SEGMENTO.LIVRE);
         mudarStatusTrem('T302', 'aguardando');
-        registrarEvento('AMV-07 normalizado e confirmado para circulacao.');
-        registrarEvento('T302 autorizado a sair do Patio A pela Linha 2.');
+        registrarEvento('AMV-07 normalizado e confirmado para circulação.');
+        registrarEvento('T302 autorizado a sair do Pátio A pela Linha 2.');
         solicitarRota('T302_SAIDA_APOS_REPARO_AMV07');
     }, 7200);
     activeTimers.push(normalizarAmv);
 };
+
+
+// ===== Revisao v57 - cenarios adicionais de estudo =====
+ROUTES.T201_LINHA2_OPERACIONAL = {
+    trem: 'T201',
+    nome: 'T201 circulação integral pela Linha 2',
+    segmentos: ['SEG-L2-B01','SEG-L2-B02','SEG-L2-B03','SEG-L2-B04','SEG-L2-B05','SEG-L2-B06','SEG-L2-B07','SEG-L2-B08','SEG-L2-B09'],
+    sinais: ['S-L2-01','S-L2-02','S-L2-03','S-L2-04','S-L2-05']
+};
+
+ROUTES.T101_LINHA1_OPERACIONAL = {
+    trem: 'T101',
+    nome: 'T101 circulação integral pela Linha 1',
+    segmentos: ['SEG-L1-B01','SEG-L1-B02','SEG-L1-B03','SEG-L1-B04','SEG-L1-B05','SEG-L1-B06','SEG-L1-B07','SEG-L1-B08','SEG-L1-B09'],
+    sinais: ['S-L1-01','S-L1-02','S-L1-03','S-L1-04','S-L1-05']
+};
+
+ROUTES.T301_ESTACIONAMENTO_PATIO_A = {
+    trem: 'T301',
+    nome: 'T301 posicionamento na via desviada do Pátio A',
+    segmentos: ['SEG-PA1-B01','SEG-PA1-B02'],
+    sinais: ['S-PA-01','S-PA-02'],
+    manterOcupadoAoFinal: true
+};
+
+Object.assign(SCENARIOS, {
+    linha1_interditada: {
+        nome: 'Cenário 13 - Linha 1 interditada e circulação pela Linha 2',
+        descricao: 'Uma inspeção programada interdita L1-B05. A Linha 1 permanece protegida enquanto T201 utiliza a Linha 2, que continua disponível para a circulação.',
+        bloqueios: ['SEG-L1-B05'],
+        posicoesIniciais: { T201: 'translate(135,300)' },
+        rotas: [{ rota: 'T201_LINHA2_OPERACIONAL', delay: 900 }]
+    },
+    linha2_interditada: {
+        nome: 'Cenário 14 - Linha 2 interditada e circulação pela Linha 1',
+        descricao: 'Uma restrição em L2-B06 impede a utilizacao da Linha 2. T101 segue pela Linha 1 sem compartilhar o trecho indisponível.',
+        bloqueios: ['SEG-L2-B06'],
+        posicoesIniciais: { T101: 'translate(135,180)' },
+        rotas: [{ rota: 'T101_LINHA1_OPERACIONAL', delay: 900 }]
+    },
+    estacionamento_patio_a: {
+        nome: 'Cenário 15 - Estacionamento técnico no Pátio A',
+        descricao: 'T301 e posicionado na via desviada PA1 e permanece ocupando o último bloco ao final do movimento, representando uma composição estacionada e protegida no pátio.',
+        bloqueios: [],
+        posicoesIniciais: { T301: 'translate(535,390)' },
+        rotas: [{ rota: 'T301_ESTACIONAMENTO_PATIO_A', delay: 700 }]
+    },
+    prioridade_principal: {
+        nome: 'Cenário 16 - Prioridade da linha principal no Pátio A',
+        descricao: 'T301 aguarda na via desviada do Pátio A enquanto T201 passa pela Linha 2. Depois da liberação da principal, T301 recebe autorização para sair pela ponta leste.',
+        bloqueios: [],
+        posicoesIniciais: { T301: 'translate(800,390)', T201: 'translate(810,300)' },
+        ocupacoesIniciais: [{ trem: 'T301', segmentos: ['SEG-PA1-B02'], status: 'aguardando' }],
+        rotas: [
+            { rota: 'T201_PASSAGEM_CRUZAMENTO_PATIO_A', delay: 800 },
+            { rota: 'T301_SAIDA_LESTE_APOS_ENCONTRO', delay: 19000 }
+        ]
+    },
+    manobra_com_passagem: {
+        nome: 'Cenário 17 - Manobra no Pátio B com passagem na principal',
+        descricao: 'T401 realiza uma movimentação curta na primeira via do Pátio B enquanto T101 circula pela Linha 1. O cenário mostra movimentos independentes em áreas distintas da malha.',
+        bloqueios: [],
+        posicoesIniciais: { T401: 'translate(1400,390)', T101: 'translate(135,180)' },
+        rotas: [
+            { rota: 'T401_PATIO_B_LINHA1', delay: 500 },
+            { rota: 'T101_LINHA1_OPERACIONAL', delay: 1200 }
+        ]
+    }
+});
+
+
+// ===== Revisao v59 - laboratorio conceitual de sinalizacao =====
+// As demonstracoes abaixo sao simplificadas e servem apenas para estudo visual.
+Object.assign(SCENARIOS, {
+    conflito_rotas: {
+        nome: 'Cenário 18 - Conflito entre rotas',
+        descricao: 'Duas solicitacoes compartilham a mesma zona da Linha 2. A primeira rota e protegida e a segunda deve permanecer sem autorização.',
+        bloqueios: [], rotas: []
+    },
+    bloco_ocupado: {
+        nome: 'Cenário 19 - Bloco ocupado impede autorização',
+        descricao: 'Um bloco da Linha 2 e apresentado como ocupado. A tentativa de estabelecer uma rota que utiliza esse bloco deve ser negada.',
+        bloqueios: [], rotas: []
+    },
+    travamento_aproximacao: {
+        nome: 'Cenário 20 - Travamento de aproximação',
+        descricao: 'Depois da autorização e com o trem em aproximação, uma tentativa de cancelar imediatamente a rota e recusada na demonstracao.',
+        bloqueios: [], rotas: []
+    },
+    liberacao_sequencial: {
+        nome: 'Cenário 21 - Liberação sequencial da rota',
+        descricao: 'A rota e reservada em amarelo. Conforme o trem avanca, o bloco atual fica vermelho e os blocos anteriores retornam ao estado livre.',
+        bloqueios: [], rotas: []
+    },
+    falha_deteccao_via: {
+        nome: 'Cenário 22 - Falha na detecção de via',
+        descricao: 'Uma falha de detecção leva o trecho a uma condicao restritiva. O sinal permanece fechado e a rota que depende do trecho não e autorizada.',
+        bloqueios: [], rotas: []
+    },
+    perda_deteccao_amv: {
+        nome: 'Cenário 23 - Perda de detecção do AMV',
+        descricao: 'O AMV-09 perde confirmação de posição. A manobra do T401 permanece bloqueada até a indicacao ser restabelecida.',
+        bloqueios: [], rotas: []
+    },
+    protecao_sobreposicao: {
+        nome: 'Cenário 24 - Proteção além do sinal',
+        descricao: 'A demonstracao destaca uma secao adicional de proteção além do ponto de parada, mantendo uma rota conflitante sem autorização.',
+        bloqueios: [], rotas: []
+    }
+});
+
+function definirEstadoDidaticoV59(segmentId, estado, trem = null) {
+    const state = segmentState[segmentId];
+    if (!state) return;
+    state.estado = estado;
+    state.trem = trem;
+    pintarSegmento(segmentId, estado);
+}
+
+function prepararDemonstracaoV59(nome, descricao) {
+    aplicarConfiguracaoDoCenario({ bloqueios: [] });
+    resetarCenario(false);
+    marcarCenarioAtivo(nome);
+    registrarEvento(`Iniciando ${descricao}`);
+    registrarEvento('Demonstracao conceitual: comportamento simplificado para estudo, sem representar procedimento operacional oficial.');
+}
+
+const iniciarCenarioBaseV59 = iniciarCenario;
+iniciarCenario = function(nomeCenario) {
+    const especiais = new Set([
+        'conflito_rotas','bloco_ocupado','travamento_aproximacao',
+        'liberacao_sequencial','falha_deteccao_via','perda_deteccao_amv',
+        'protecao_sobreposicao'
+    ]);
+    if (!especiais.has(nomeCenario)) return iniciarCenarioBaseV59(nomeCenario);
+
+    const scenario = SCENARIOS[nomeCenario];
+    prepararDemonstracaoV59(nomeCenario, scenario.nome);
+    registrarEvento(scenario.descricao);
+
+    if (nomeCenario === 'conflito_rotas') {
+        aplicarPosicoesIniciaisDoCenario({ T201:'translate(810,300)', T301:'translate(800,390)' });
+        definirEstadoDidaticoV59('SEG-PA1-B02', ESTADO_SEGMENTO.OCUPADO, 'T301');
+        trainState.T301.segmentosOcupados = ['SEG-PA1-B02'];
+        registrarEvento('Rota de T201 estabelecida pela Linha 2 na zona do Pátio A.');
+        solicitarRota('T201_PASSAGEM_CRUZAMENTO_PATIO_A');
+        const t=setTimeout(()=>{
+            registrarEvento('T301 solicita a saída pela mesma zona protegida.');
+            solicitarRota('T301_SAIDA_LESTE_APOS_ENCONTRO');
+        },1200); activeTimers.push(t);
+        return;
+    }
+
+    if (nomeCenario === 'bloco_ocupado') {
+        aplicarPosicoesIniciaisDoCenario({ T201:'translate(630,300)', T301:'translate(1080,300)' });
+        definirEstadoDidaticoV59('SEG-L2-B06', ESTADO_SEGMENTO.OCUPADO, 'T301');
+        registrarEvento('Detecção informa L2-B06 ocupado. S-L2-04 permanece fechado.');
+        setSignalVisual('S-L2-04','vermelho');
+        const t=setTimeout(()=>solicitarRota('T201_LINHA2_OPERACIONAL'),1000); activeTimers.push(t);
+        return;
+    }
+
+    if (nomeCenario === 'travamento_aproximacao') {
+        aplicarPosicoesIniciaisDoCenario({ T101:'translate(135,180)' });
+        solicitarRota('T101_LINHA1_OPERACIONAL');
+        const t=setTimeout(()=>{
+            registrarEvento('Solicitado cancelamento imediato com T101 em aproximação.');
+            registrarEvento('Cancelamento recusado nesta demonstracao: rota continua protegida até a passagem e liberação.');
+        },1800); activeTimers.push(t);
+        return;
+    }
+
+    if (nomeCenario === 'liberacao_sequencial') {
+        aplicarPosicoesIniciaisDoCenario({ T201:'translate(135,300)' });
+        registrarEvento('Observe a sequência amarelo, vermelho e verde em cada bloco.');
+        solicitarRota('T201_LINHA2_OPERACIONAL');
+        return;
+    }
+
+    if (nomeCenario === 'falha_deteccao_via') {
+        definirEstadoDidaticoV59('SEG-L1-B05', ESTADO_SEGMENTO.INDISPONIVEL, null);
+        setSignalVisual('S-L1-03','vermelho');
+        aplicarPosicoesIniciaisDoCenario({ T101:'translate(135,180)' });
+        registrarEvento('L1-B05 sem confirmação confiavel de via livre. Estado restritivo aplicado.');
+        const t=setTimeout(()=>solicitarRota('T101_LINHA1_OPERACIONAL'),1000); activeTimers.push(t);
+        return;
+    }
+
+    if (nomeCenario === 'perda_deteccao_amv') {
+        definirEstadoDidaticoV59('SEG-AMV-09', ESTADO_SEGMENTO.INDISPONIVEL, null);
+        setSignalVisual('S-PB-01','vermelho');
+        aplicarPosicoesIniciaisDoCenario({ T401:'translate(1400,390)' });
+        registrarEvento('AMV-09 sem confirmação de posição. S-PB-01 permanece fechado.');
+        const t1=setTimeout(()=>solicitarRota('T401_PATIO_B_LINHA1'),1000); activeTimers.push(t1);
+        const t2=setTimeout(()=>{
+            definirEstadoDidaticoV59('SEG-AMV-09', ESTADO_SEGMENTO.LIVRE, null);
+            registrarEvento('Indicacao do AMV-09 restabelecida. Nova solicitacao de rota permitida.');
+            solicitarRota('T401_PATIO_B_LINHA1');
+        },6500); activeTimers.push(t2);
+        return;
+    }
+
+    if (nomeCenario === 'protecao_sobreposicao') {
+        aplicarPosicoesIniciaisDoCenario({ T201:'translate(990,300)', T301:'translate(800,390)' });
+        ['SEG-L2-B06','SEG-L2-B07'].forEach(id=>definirEstadoDidaticoV59(id,ESTADO_SEGMENTO.RESERVADO,'T201'));
+        setSignalVisual('S-L2-04','verde');
+        registrarEvento('L2-B06 reservado para o movimento; L2-B07 destacado como secao adicional de proteção.');
+        registrarEvento('T301 solicita uma rota que utiliza a área protegida.');
+        const t=setTimeout(()=>solicitarRota('T301_SAIDA_LESTE_APOS_ENCONTRO'),1200); activeTimers.push(t);
+    }
+};
+
+
+// ===== Revisão v64 - zoom e navegação do mapa =====
+function inicializarZoomMapaV64() {
+    const svg = document.getElementById('cco-realista-svg');
+    const viewport = document.getElementById('synoptic-viewport');
+    if (!svg || !viewport || svg.dataset.zoomInstalado === 'true') return;
+    svg.dataset.zoomInstalado = 'true';
+
+    const original = { x: 0, y: 0, width: 1800, height: 820 };
+    const estado = { ...original, minimo: 0.35, maximo: 4, arrastando: false, ultimoX: 0, ultimoY: 0 };
+    const nivel = document.getElementById('map-zoom-level');
+
+    function escalaAtual() {
+        return original.width / estado.width;
+    }
+
+    function limitarViewBox() {
+        estado.width = Math.max(original.width / estado.maximo, Math.min(original.width / estado.minimo, estado.width));
+        estado.height = estado.width * original.height / original.width;
+        const margemX = original.width * 0.25;
+        const margemY = original.height * 0.25;
+        estado.x = Math.max(-margemX, Math.min(original.width + margemX - estado.width, estado.x));
+        estado.y = Math.max(-margemY, Math.min(original.height + margemY - estado.height, estado.y));
+    }
+
+    function aplicarViewBox() {
+        limitarViewBox();
+        svg.setAttribute('viewBox', `${estado.x} ${estado.y} ${estado.width} ${estado.height}`);
+        if (nivel) nivel.textContent = `${Math.round(escalaAtual() * 100)}%`;
+    }
+
+    function zoom(fator, centroTelaX = viewport.clientWidth / 2, centroTelaY = viewport.clientHeight / 2) {
+        const rect = viewport.getBoundingClientRect();
+        const px = Math.max(0, Math.min(rect.width, centroTelaX));
+        const py = Math.max(0, Math.min(rect.height, centroTelaY));
+        const pontoX = estado.x + (px / rect.width) * estado.width;
+        const pontoY = estado.y + (py / rect.height) * estado.height;
+        const novaLargura = estado.width / fator;
+        const novaAltura = estado.height / fator;
+        estado.x = pontoX - (px / rect.width) * novaLargura;
+        estado.y = pontoY - (py / rect.height) * novaAltura;
+        estado.width = novaLargura;
+        estado.height = novaAltura;
+        aplicarViewBox();
+    }
+
+    function resetarZoom() {
+        Object.assign(estado, original);
+        aplicarViewBox();
+    }
+
+    document.getElementById('map-zoom-in')?.addEventListener('click', () => zoom(1.25));
+    document.getElementById('map-zoom-out')?.addEventListener('click', () => zoom(0.8));
+    document.getElementById('map-zoom-reset')?.addEventListener('click', resetarZoom);
+    document.getElementById('map-fullscreen')?.addEventListener('click', async () => {
+        try {
+            if (!document.fullscreenElement) await viewport.requestFullscreen();
+            else await document.exitFullscreen();
+        } catch (erro) {
+            registrarEvento('Não foi possível abrir o mapa em tela cheia neste navegador.');
+        }
+    });
+
+    viewport.addEventListener('wheel', event => {
+        event.preventDefault();
+        const rect = viewport.getBoundingClientRect();
+        zoom(event.deltaY < 0 ? 1.15 : 0.87, event.clientX - rect.left, event.clientY - rect.top);
+    }, { passive: false });
+
+    viewport.addEventListener('pointerdown', event => {
+        if (event.button !== 0) return;
+        estado.arrastando = true;
+        estado.ultimoX = event.clientX;
+        estado.ultimoY = event.clientY;
+        viewport.classList.add('is-panning');
+        viewport.setPointerCapture(event.pointerId);
+    });
+
+    viewport.addEventListener('pointermove', event => {
+        if (!estado.arrastando) return;
+        const dx = event.clientX - estado.ultimoX;
+        const dy = event.clientY - estado.ultimoY;
+        estado.ultimoX = event.clientX;
+        estado.ultimoY = event.clientY;
+        estado.x -= dx * estado.width / viewport.clientWidth;
+        estado.y -= dy * estado.height / viewport.clientHeight;
+        aplicarViewBox();
+    });
+
+    function encerrarArraste(event) {
+        estado.arrastando = false;
+        viewport.classList.remove('is-panning');
+        if (event?.pointerId !== undefined && viewport.hasPointerCapture(event.pointerId)) viewport.releasePointerCapture(event.pointerId);
+    }
+    viewport.addEventListener('pointerup', encerrarArraste);
+    viewport.addEventListener('pointercancel', encerrarArraste);
+    viewport.addEventListener('dblclick', event => {
+        const rect = viewport.getBoundingClientRect();
+        zoom(1.4, event.clientX - rect.left, event.clientY - rect.top);
+    });
+
+    aplicarViewBox();
+}
+
+if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', inicializarZoomMapaV64);
+else inicializarZoomMapaV64();
