@@ -2129,3 +2129,44 @@ function inicializarZoomMapaV64() {
 
 if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', inicializarZoomMapaV64);
 else inicializarZoomMapaV64();
+
+
+// ===== Revisão v71 - ocupação física única e nomenclatura de tentativas =====
+function ehAliasReversoV71(segmentId) {
+    return /-R$/.test(segmentId);
+}
+
+function liberarAliasFisicoV71(segmentId, codigoTrem) {
+    const relacionados = typeof CONFLITOS_FISICOS_V29 !== 'undefined'
+        ? (CONFLITOS_FISICOS_V29[segmentId] || [])
+        : [];
+    relacionados.forEach(aliasId => {
+        const alias = segmentState[aliasId];
+        if (!alias) return;
+        // O alias reverso representa o mesmo pedaço de trilho e não é uma segunda ocupação.
+        alias.estado = ESTADO_SEGMENTO.LIVRE;
+        alias.trem = null;
+        const elemento = document.getElementById(aliasId);
+        if (elemento) aplicarVisualSegmentoV43(aliasId, ESTADO_SEGMENTO.LIVRE);
+    });
+}
+
+// Contagem operacional por trecho físico. Aliases de sentido não entram novamente no total.
+atualizarPainelEstados = function() {
+    const contadores = { livre:0, reservado:0, ocupado:0, indisponivel:0 };
+    Object.entries(segmentState).forEach(([segmentId, state]) => {
+        if (!state || !state.estado || ehAliasReversoV71(segmentId)) return;
+        if (state.estado === ESTADO_SEGMENTO.LIVRE) contadores.livre += 1;
+        else if (state.estado === ESTADO_SEGMENTO.RESERVADO) contadores.reservado += 1;
+        else if (state.estado === ESTADO_SEGMENTO.OCUPADO) contadores.ocupado += 1;
+        else if (state.estado === ESTADO_SEGMENTO.INDISPONIVEL) contadores.indisponivel += 1;
+    });
+    const livreEl = document.getElementById('state-count-free');
+    const reservadoEl = document.getElementById('state-count-reserved');
+    const ocupadoEl = document.getElementById('state-count-busy');
+    const interditadoEl = document.getElementById('state-count-off');
+    if (livreEl) livreEl.textContent = contadores.livre;
+    if (reservadoEl) reservadoEl.textContent = contadores.reservado;
+    if (ocupadoEl) ocupadoEl.textContent = contadores.ocupado;
+    if (interditadoEl) interditadoEl.textContent = contadores.indisponivel;
+};

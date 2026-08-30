@@ -22,14 +22,13 @@ const MISSOES = {
         nome: 'Missão 1 - Encontro operacional no Pátio A',
         descricao: 'T301 está parado na desviada PA1. T201 aguarda autorização para seguir pela Linha 2 principal. Nenhum trem sera movimentado antes da sua decisão.',
         posicoesIniciais: {
-            T201: 'translate(720,300)',
-            T301: 'translate(635,350)',
+            T201: 'translate(630,300)',
+            T301: 'translate(940,390)',
             T101: 'translate(135,180)',
             T401: 'translate(1280,520)',
         },
         ocupacoesIniciais: [
-            { trem: 'T301', segmentos: ['SEG-PA1-B01','SEG-PA1-B02'], status: 'aguardando' },
-            { trem: 'T201', segmentos: ['SEG-L2-B04'], status: 'aguardando' },
+            { trem: 'T301', segmentos: ['SEG-PA1-B02'], status: 'aguardando' },
         ],
         passos: [
             {
@@ -429,9 +428,9 @@ function exibirResultadoEscolhaV62(decisao, opcao, impacto) {
             <div class="impact-grid">
               <span><small>Pontos</small><strong>${impacto.pontos >= 0 ? '+' : ''}${impacto.pontos}</strong></span>
               <span><small>Segurança</small><strong>${impacto.seguranca >= 0 ? '+' : ''}${impacto.seguranca}%</strong></span>
-              <span><small>Vidas</small><strong>${impacto.vidas}</strong></span>
+              <span><small>Tentativas</small><strong>${impacto.vidas}</strong></span>
             </div>
-            <p class="resultado-feedback">${perdeuVida ? 'A decisão gerou uma ocorrência crítica simulada. Uma vida foi perdida.' : 'A missão continuará com os impactos registrados.'}</p>
+            <p class="resultado-feedback">${perdeuVida ? 'A decisão gerou uma ocorrência crítica simulada. Uma tentativa foi consumida.' : 'A missão continuará com os impactos registrados.'}</p>
             <button class="relatorio-fechar">Continuar</button>
           </div>`;
         overlay.querySelector('button').addEventListener('click', () => { overlay.remove(); resolve(); });
@@ -455,7 +454,7 @@ function exibirFimDeJogoV62(motivo) {
         <div class="impact-grid impact-grid--final">
           <span><small>Pontuação</small><strong>${GAME_DECISAO.pontos}</strong></span>
           <span><small>Segurança</small><strong>${GAME_DECISAO.seguranca}%</strong></span>
-          <span><small>Vidas</small><strong>${GAME_DECISAO.vidas}</strong></span>
+          <span><small>Tentativas</small><strong>${GAME_DECISAO.vidas}</strong></span>
         </div>
         <button class="relatorio-fechar">Tentar novamente</button>
       </div>`;
@@ -506,7 +505,7 @@ executarMissao = async function(missaoId) {
             if (meuId !== execucaoAtualId) return;
             if (verificarDerrotaV62()) {
                 const motivo = GAME_DECISAO.vidas <= 0
-                    ? 'As três oportunidades foram consumidas por decisões críticas.'
+                    ? 'As três tentativas foram consumidas por decisões críticas.'
                     : GAME_DECISAO.seguranca <= 20
                         ? 'O indicador de segurança atingiu um nível crítico.'
                         : 'A pontuação operacional chegou a zero.';
@@ -799,10 +798,10 @@ exibirResultadoEscolhaV62 = function(decisao, opcao, impacto) {
             <div class="impact-grid">
               <span><small>Pontos</small><strong>${impacto.pontos >= 0 ? '+' : ''}${impacto.pontos}</strong></span>
               <span><small>Segurança</small><strong>${impacto.seguranca >= 0 ? '+' : ''}${impacto.seguranca}%</strong></span>
-              <span><small>Vidas</small><strong>${impacto.vidas}</strong></span>
+              <span><small>Tentativas</small><strong>${impacto.vidas}</strong></span>
             </div>
             <div class="learning-box"><strong>Por que isso importa?</strong><p>${opcao.fundamento || 'A decisão deve ser comparada com as condições atuais da malha e com as regras aplicáveis.'}</p></div>
-            <p class="resultado-feedback">${perdeuVida ? 'A decisão gerou uma ocorrência crítica simulada. Uma vida foi perdida.' : 'A missão continuará com os impactos registrados.'}</p>
+            <p class="resultado-feedback">${perdeuVida ? 'A decisão gerou uma ocorrência crítica simulada. Uma tentativa foi consumida.' : 'A missão continuará com os impactos registrados.'}</p>
             <button class="relatorio-fechar">Continuar</button>
           </div>`;
         overlay.querySelector('button').addEventListener('click', () => { overlay.remove(); resolve(); });
@@ -944,7 +943,7 @@ async function executarConsequenciaVisualV67(missaoId, passo, opcao) {
                 if (st) { st.estado = ESTADO_SEGMENTO.LIVRE; st.trem = null; }
                 pintarSegmento('SEG-AMV-07', ESTADO_SEGMENTO.LIVRE);
                 setSignalVisual('S-PA-01','verde');
-                await executarRotaVisualV67('T302_SAIDA_APOS_REPARO_AMV07','T302','translate(850,490)');
+                await executarRotaVisualV67('T302_SAIDA_APOS_REPARO_AMV07','T302','translate(650,490)');
             } else await piscarElementoV67('SEG-AMV-07', ESTADO_SEGMENTO.OCUPADO, 4);
         }
         return;
@@ -1028,7 +1027,7 @@ function animarElementoNoSegmentoV68(trem, elemento, duracao) {
     });
 }
 
-async function animarTremDidaticoV68(codigoTrem, segmentos, duracaoPorTrecho = 1050) {
+async function animarTremDidaticoV68(codigoTrem, segmentos, duracaoPorTrecho = 1800) {
     const trem = trainState[codigoTrem];
     const validos = segmentos.filter(id => document.getElementById(id));
     if (!trem || validos.length === 0) return;
@@ -1038,35 +1037,59 @@ async function animarTremDidaticoV68(codigoTrem, segmentos, duracaoPorTrecho = 1
     registrarEvento(`${codigoTrem}: iniciando consequência visual da decisão.`);
 
     // Mostra antecipadamente a rota que será percorrida.
-    validos.forEach(id => {
-        const estado = segmentState[id];
-        if (estado) {
-            estado.estado = ESTADO_SEGMENTO.RESERVADO;
-            estado.trem = codigoTrem;
+    // Intertravamento didático: estabelece e trava toda a rota antes da partida.
+    validos.forEach(segmentId => {
+        liberarAliasFisicoV71(segmentId, codigoTrem);
+        const state = segmentState[segmentId];
+        if (state) {
+            state.estado = ESTADO_SEGMENTO.RESERVADO;
+            state.trem = codigoTrem;
         }
-        pintarSegmento(id, ESTADO_SEGMENTO.RESERVADO);
+        pintarSegmento(segmentId, ESTADO_SEGMENTO.RESERVADO);
     });
-    await new Promise(resolve => setTimeout(resolve, 650));
+    atualizarPainelEstados();
+    registrarEvento(`${codigoTrem}: rota completa estabelecida e protegida antes da partida.`);
+    await new Promise(resolve => setTimeout(resolve, 1200));
 
     for (let i = 0; i < validos.length; i += 1) {
         const id = validos[i];
         const elemento = document.getElementById(id);
+
+        // Regra de sinalização didática:
+        // bloco atual ocupado em vermelho, toda a rota à frente reservada em amarelo.
+        if (i > 0) {
+            const anteriorId = validos[i - 1];
+            const anterior = segmentState[anteriorId];
+            if (anterior && anterior.trem === codigoTrem) {
+                anterior.estado = ESTADO_SEGMENTO.LIVRE;
+                anterior.trem = null;
+            }
+            pintarSegmento(anteriorId, ESTADO_SEGMENTO.LIVRE);
+            liberarAliasFisicoV71(anteriorId, codigoTrem);
+        }
+
+        liberarAliasFisicoV71(id, codigoTrem);
         const estado = segmentState[id];
         if (estado) {
             estado.estado = ESTADO_SEGMENTO.OCUPADO;
             estado.trem = codigoTrem;
         }
         pintarSegmento(id, ESTADO_SEGMENTO.OCUPADO);
-        await animarElementoNoSegmentoV68(trem, elemento, duracaoPorTrecho);
-        if (i > 0) {
-            const anteriorId = validos[i - 1];
-            const anterior = segmentState[anteriorId];
-            if (anterior) {
-                anterior.estado = ESTADO_SEGMENTO.LIVRE;
-                anterior.trem = null;
+
+        // Todos os blocos adiante permanecem reservados até o trem alcançá-los.
+        for (let frente = i + 1; frente < validos.length; frente += 1) {
+            const frenteId = validos[frente];
+            liberarAliasFisicoV71(frenteId, codigoTrem);
+            const frenteState = segmentState[frenteId];
+            if (frenteState) {
+                frenteState.estado = ESTADO_SEGMENTO.RESERVADO;
+                frenteState.trem = codigoTrem;
             }
-            pintarSegmento(anteriorId, ESTADO_SEGMENTO.LIVRE);
+            pintarSegmento(frenteId, ESTADO_SEGMENTO.RESERVADO);
         }
+
+        atualizarPainelEstados();
+        await animarElementoNoSegmentoV68(trem, elemento, duracaoPorTrecho);
         await new Promise(resolve => setTimeout(resolve, 180));
     }
 
@@ -1077,6 +1100,17 @@ async function animarTremDidaticoV68(codigoTrem, segmentos, duracaoPorTrecho = 1
         ultimo.trem = null;
     }
     pintarSegmento(ultimoId, ESTADO_SEGMENTO.LIVRE);
+    liberarAliasFisicoV71(ultimoId, codigoTrem);
+    validos.forEach(segmentId => {
+        const state = segmentState[segmentId];
+        if (state && state.trem === codigoTrem) {
+            state.estado = ESTADO_SEGMENTO.LIVRE;
+            state.trem = null;
+            pintarSegmento(segmentId, ESTADO_SEGMENTO.LIVRE);
+            liberarAliasFisicoV71(segmentId, codigoTrem);
+        }
+    });
+    atualizarPainelEstados();
     trem.emMovimento = false;
     mudarStatusTrem(codigoTrem, 'aguardando');
     registrarEvento(`${codigoTrem}: consequência visual concluída.`);
@@ -1103,14 +1137,14 @@ async function executarConsequenciaVisualV68(missaoId, passo, opcao) {
         if (fase === 1) {
             await mostrarFalhaVisualV68('SEG-AMV-06', 'S-PA-02', risco === 'arriscado' ? 'Verificação incompleta: AMV-06 mantido restritivo.' : 'AMV-06, sinal e via de cruzamento sendo conferidos.');
         } else if (fase === 2) {
-            if (risco === 'seguro') await animarTremDidaticoV68('T201',['SEG-L2-B04','SEG-L2-B05','SEG-L2-B06','SEG-L2-B07','SEG-L2-B08'],900);
+            if (risco === 'seguro') await animarTremDidaticoV68('T201',['SEG-L2-B04','SEG-L2-B05','SEG-L2-B06','SEG-L2-B07','SEG-L2-B08'],1900);
             else if (risco === 'moderado') await animarTremDidaticoV68('T101',['SEG-L1-B01','SEG-L1-B02','SEG-L1-B03','SEG-L1-B04'],900);
             else await mostrarFalhaVisualV68('SEG-L2-B07','S-L2-04','Conflito detectado: saída de T301 negada.');
         } else if (fase === 3) {
             await mostrarFalhaVisualV68('SEG-L2-B07','S-L2-04','Indicação intermitente do sensor S207 em análise.');
         } else if (fase === 4) {
             if (risco === 'arriscado') await mostrarFalhaVisualV68('SEG-AMV-06','S-PA-02','Saída antecipada de T301 bloqueada.');
-            else await animarTremDidaticoV68('T301',['SEG-PA1-B02','SEG-AMV-06','SEG-L2-B06','SEG-L2-B07'],1050);
+            else await animarTremDidaticoV68('T301',['SEG-PA1-B02','SEG-AMV-06','SEG-L2-B06','SEG-L2-B07'],1900);
         }
         return;
     }
@@ -1135,7 +1169,7 @@ async function executarConsequenciaVisualV68(missaoId, passo, opcao) {
         if (fase === 1 || fase === 3) await mostrarFalhaVisualV68('SEG-AMV-07','S-PA-01','AMV-07 sem confirmação de posição.');
         else if (fase === 2 && risco === 'seguro') await animarTremDidaticoV68('T101',['SEG-L1-B01','SEG-L1-B02','SEG-L1-B03','SEG-L1-B04'],950);
         else if (fase === 2) await mostrarFalhaVisualV68('SEG-AMV-07','S-PA-01','Movimento dependente do AMV-07 permanece bloqueado.');
-        else if (fase === 4 && risco !== 'arriscado') await animarTremDidaticoV68('T302',['SEG-PA3-B01','SEG-AMV-07','SEG-L2-B04','SEG-L2-B05'],1050);
+        else if (fase === 4 && risco !== 'arriscado') await animarTremDidaticoV68('T302',['SEG-PA3-B01','SEG-AMV-07','SEG-L2-B04','SEG-L2-B05'],1900);
         else await mostrarFalhaVisualV68('SEG-AMV-07','S-PA-01','Retomada sem conferência foi impedida.');
         return;
     }
@@ -1193,3 +1227,7 @@ function instalarResetMissaoV69() {
 
 if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', instalarResetMissaoV69);
 else instalarResetMissaoV69();
+
+// Revisão v72: atualização final do painel após cada consequência visual.
+const executarConsequenciaVisualBaseV72 = executarConsequenciaVisualV68;
+executarConsequenciaVisualV68 = async function(missaoId, passo, opcao) { await executarConsequenciaVisualBaseV72(missaoId, passo, opcao); atualizarPainelEstados(); };

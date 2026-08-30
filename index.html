@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulador de Elementos Ferroviários</title>
-  <link rel="stylesheet" href="./css/cco.css?v=69">
+  <link rel="stylesheet" href="./css/cco.css?v=74">
 </head>
 <body>
 <header class="cco-header">
@@ -74,7 +74,7 @@
     <div class="decision-game-hud" aria-label="Progresso da missão">
       <span><small>Pontuação</small><strong id="game-score">100</strong></span>
       <span><small>Segurança</small><strong id="game-safety">100%</strong></span>
-      <span><small>Vidas</small><strong id="game-lives">3</strong></span>
+      <span><small>Tentativas</small><strong id="game-lives">3</strong></span>
       <span><small>Sequência</small><strong id="game-streak">0</strong></span>
     </div>
   </div>
@@ -115,13 +115,13 @@
       </div>
       <div class="state-dashboard">
         <div class="state-card state-card--free"><div class="state-card-icon"></div><div><span class="state-card-label">Livre</span><strong id="state-count-free">0</strong></div></div>
-        <div class="state-card state-card--reserved"><div class="state-card-icon"></div><div><span class="state-card-label">Reservado</span><strong id="state-count-reserved">0</strong></div></div>
+        <div class="state-card state-card--reserved"><div class="state-card-icon"></div><div><span class="state-card-label">Rota protegida</span><strong id="state-count-reserved">0</strong></div></div>
         <div class="state-card state-card--busy"><div class="state-card-icon"></div><div><span class="state-card-label">Ocupado</span><strong id="state-count-busy">0</strong></div></div>
         <div class="state-card state-card--off"><div class="state-card-icon"></div><div><span class="state-card-label">Interditado</span><strong id="state-count-off">0</strong></div></div>
       </div>
       <div class="state-legend">
         <span><i class="state-dot state-free"></i> Bloco liberado para circulação</span>
-        <span><i class="state-dot state-reserved"></i> Rota autorizada aguardando trem</span>
+        <span><i class="state-dot state-reserved"></i> Trechos da rota estabelecida e protegida</span>
         <span><i class="state-dot state-busy"></i> Trem ocupando o bloco</span>
         <span><i class="state-dot state-off"></i> Falha, bloqueio ou manutenção</span>
       </div>
@@ -223,7 +223,7 @@ const sg=document.currentScript.previousElementSibling;const pts=[[105,180,'S101
 </section>
 
 </main>
-<script src="./js/cco.js?v=69"></script>
-<script src="./js/decisions.js?v=69"></script>
+<script src="./js/cco.js?v=74"></script>
+<script src="./js/decisions.js?v=74"></script>
 </body>
 </html>

@@ -451,3 +451,12 @@ body{background:#010304;color:var(--txt);font-family:Consolas,"Segoe UI",monospa
 
 /* ===== Revisão v69 - consequência visual primeiro ===== */
 .mission-map-notice{font-size:12px!important;top:54px!important;box-shadow:0 0 24px rgba(32,232,120,.22)}
+
+
+/* ===== Revisão v70 - trens sobre a via e ocupação única ===== */
+.train{transform-box:fill-box;transform-origin:center;filter:none!important}
+.train-loco{vector-effect:non-scaling-stroke}
+
+
+/* ===== Revisão v74 - rota completa estabelecida e liberação seccional ===== */
+.state-card--reserved .state-card-label{font-size:8.1px!important}
