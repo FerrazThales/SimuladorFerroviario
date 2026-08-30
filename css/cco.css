@@ -460,3 +460,12 @@ body{background:#010304;color:var(--txt);font-family:Consolas,"Segoe UI",monospa
 
 /* ===== Revisão v74 - rota completa estabelecida e liberação seccional ===== */
 .state-card--reserved .state-card-label{font-size:8.1px!important}
+
+
+/* ===== Revisão v75 - Operação Personalizada validada ===== */
+.custom-trains-grid--four{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+.custom-trains-grid--four .custom-train-card{grid-template-columns:145px 135px minmax(260px,1fr)!important}
+.custom-help{margin-top:8px;padding:8px 10px;border:1px solid #2c4353;background:#071019;color:#a9bfce;font-size:10px;line-height:1.4}
+.custom-help strong{color:#74d8a0}
+@media(max-width:1200px){.custom-trains-grid--four{grid-template-columns:1fr!important}.custom-trains-grid--four .custom-train-card{grid-template-columns:150px 140px minmax(220px,1fr)!important}}
+@media(max-width:720px){.custom-trains-grid--four .custom-train-card{grid-template-columns:1fr!important}}

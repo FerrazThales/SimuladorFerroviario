@@ -2170,3 +2170,118 @@ atualizarPainelEstados = function() {
     if (ocupadoEl) ocupadoEl.textContent = contadores.ocupado;
     if (interditadoEl) interditadoEl.textContent = contadores.indisponivel;
 };
+
+
+// ===== Revisão v75 - Operação Personalizada com rotas fisicamente contínuas =====
+const ROTAS_VALIDAS_V75 = {
+    T101: [
+        { id:'V75_T101_L1_COMPLETA', label:'Linha 1: Estação A → Estação F', inicio:'translate(90,180)', segmentos:['SEG-L1-B01','SEG-L1-B02','SEG-L1-B03','SEG-L1-B04','SEG-L1-B05','SEG-L1-B06','SEG-L1-B07','SEG-L1-B08','SEG-L1-B09'], sinais:['S-L1-01','S-L1-02','S-L1-03','S-L1-04','S-L1-05'] },
+        { id:'V75_T101_L1_CENTRO', label:'Linha 1: Estação A → Estação B', inicio:'translate(90,180)', segmentos:['SEG-L1-B01','SEG-L1-B02','SEG-L1-B03','SEG-L1-B04','SEG-L1-B05'], sinais:['S-L1-01','S-L1-02','S-L1-03'] },
+        { id:'V75_T101_L2_OESTE', label:'Linha 2: Estação D → Pátio A, sentido oeste', inicio:'translate(1710,300)', segmentos:['SEG-L2-B09-R','SEG-L2-B08-R','SEG-L2-B07-R','SEG-L2-B06-R','SEG-L2-B05-R','SEG-L2-B04-R'], sinais:['S-L2-05','S-L2-04','S-L2-03'] }
+    ],
+    T201: [
+        { id:'V75_T201_L2_COMPLETA', label:'Linha 2: Estação C → Estação D', inicio:'translate(90,300)', segmentos:['SEG-L2-B01','SEG-L2-B02','SEG-L2-B03','SEG-L2-B04','SEG-L2-B05','SEG-L2-B06','SEG-L2-B07','SEG-L2-B08','SEG-L2-B09'], sinais:['S-L2-01','S-L2-02','S-L2-03','S-L2-04','S-L2-05'] },
+        { id:'V75_T201_APROX_PATIO_A', label:'Linha 2: Estação C → acesso leste do Pátio A', inicio:'translate(90,300)', segmentos:['SEG-L2-B01','SEG-L2-B02','SEG-L2-B03','SEG-L2-B04','SEG-L2-B05','SEG-L2-B06'], sinais:['S-L2-01','S-L2-02','S-L2-03','S-L2-04'] },
+        { id:'V75_T201_APROX_TERMINAL', label:'Linha 2: Pátio A → aproximação do terminal', inicio:'translate(630,300)', segmentos:['SEG-L2-B04','SEG-L2-B05','SEG-L2-B06','SEG-L2-B07','SEG-L2-B08'], sinais:['S-L2-03','S-L2-04','S-L2-05'] }
+    ],
+    T301: [
+        { id:'V75_T301_PATIO_LESTE', label:'Pátio A PA1 → Linha 2, sentido leste', inicio:'translate(800,390)', segmentos:['SEG-PA1-B02','SEG-AMV-06','SEG-L2-B06','SEG-L2-B07','SEG-L2-B08','SEG-L2-B09'], amvs:['SEG-AMV-06'], sinais:['S-PA-02','S-L2-04','S-L2-05'] },
+        { id:'V75_T301_ESTACIONAR_PA1', label:'Pátio A: percorrer e estacionar na PA1', inicio:'translate(520,390)', segmentos:['SEG-PA1-B01','SEG-PA1-B02'], sinais:['S-PA-01','S-PA-02'], manterOcupadoAoFinal:true }
+    ],
+    T302: [
+        { id:'V75_T302_PATIO_L2', label:'Pátio A PA3 → Linha 2, sentido leste', inicio:'translate(650,490)', segmentos:['SEG-PA3-B01','SEG-AMV-07','SEG-L2-B04','SEG-L2-B05','SEG-L2-B06'], amvs:['SEG-AMV-07'], sinais:['S-PA-01','S-L2-03','S-L2-04'] },
+        { id:'V75_T302_PATIO_PA3', label:'Pátio A: movimentação interna na PA3', inicio:'translate(650,490)', segmentos:['SEG-PA3-B01','SEG-PA3-B02'], sinais:['S-PA-01','S-PA-02'] }
+    ],
+    T401: [
+        { id:'V75_T401_PATIO_B', label:'Linha 2 → Pátio B, via PB1', inicio:'translate(1350,300)', segmentos:['SEG-AMV-09','SEG-PB1-B01'], amvs:['SEG-AMV-09'], sinais:['S-L2-04','S-PB-01','S-PB-02'] },
+        { id:'V75_T401_PB1_INTERNA', label:'Pátio B: movimentação interna na PB1', inicio:'translate(1400,390)', segmentos:['SEG-PB1-B01'], sinais:['S-PB-01','S-PB-02'] }
+    ],
+    T501: [
+        { id:'V75_T501_PERA_SAIDA', label:'Linha 2 → pera de retorno → Linha 2 leste', inicio:'translate(450,300)', segmentos:['SEG-AMV-11','SEG-PERA-B01','SEG-PERA-B02','SEG-PERA-B03'], amvs:['SEG-AMV-11'], sinais:['S-PR-01','S-PR-02','S-L2-05'] },
+        { id:'V75_T501_PERA_PARCIAL', label:'Pera de retorno: entrada → Estação E', inicio:'translate(450,300)', segmentos:['SEG-AMV-11','SEG-PERA-B01','SEG-PERA-B02'], amvs:['SEG-AMV-11'], sinais:['S-PR-01','S-PR-02'] }
+    ]
+};
+
+Object.values(ROTAS_VALIDAS_V75).flat().forEach(config => {
+    const trem = Object.keys(ROTAS_VALIDAS_V75).find(codigo => ROTAS_VALIDAS_V75[codigo].includes(config));
+    ROUTES[config.id] = { trem, nome:config.label, segmentos:[...config.segmentos], sinais:[...(config.sinais||[])], amvs:[...(config.amvs||[])], manterOcupadoAoFinal:Boolean(config.manterOcupadoAoFinal), inicioV75:config.inicio };
+});
+
+function preencherRotasV75(indice) {
+    const codigo = document.getElementById(`custom-train-${indice}-name`)?.value || '';
+    const select = document.getElementById(`custom-train-${indice}-route`);
+    if (!select) return;
+    const configuracoes = ROTAS_VALIDAS_V75[codigo] || [];
+    select.innerHTML = configuracoes.length
+        ? configuracoes.map(config => `<option value="${config.id}">${config.label}</option>`).join('')
+        : '<option value="">Selecione um trem</option>';
+}
+
+function validarContinuidadeV75(config) {
+    const tolerancia = 1.5;
+    for (let i = 0; i < config.segmentos.length - 1; i += 1) {
+        const atual = document.getElementById(config.segmentos[i]);
+        const proximo = document.getElementById(config.segmentos[i + 1]);
+        if (!atual || !proximo || typeof atual.getTotalLength !== 'function' || typeof proximo.getTotalLength !== 'function') return false;
+        const fim = atual.getPointAtLength(atual.getTotalLength());
+        const inicio = proximo.getPointAtLength(0);
+        if (Math.hypot(fim.x-inicio.x, fim.y-inicio.y) > tolerancia) return false;
+    }
+    return true;
+}
+
+function prepararRotaPersonalizadaV75(indice) {
+    const codigo = document.getElementById(`custom-train-${indice}-name`)?.value || '';
+    if (!codigo) return null;
+    const rotaId = document.getElementById(`custom-train-${indice}-route`)?.value || '';
+    const fator = Number(document.getElementById(`custom-train-${indice}-speed`)?.value || 1);
+    const config = (ROTAS_VALIDAS_V75[codigo] || []).find(item => item.id === rotaId);
+    if (!config) return { erro:`Trem ${indice}: selecione uma rota válida.` };
+    if (!validarContinuidadeV75(config)) return { erro:`Trem ${indice}: a rota foi bloqueada porque existe descontinuidade física no desenho.` };
+    return { codigo, rotaId, fator, config };
+}
+
+function iniciarOperacaoPersonalizadaV75() {
+    const mensagem = document.getElementById('custom-operation-message');
+    const selecionados = [1,2,3,4].map(prepararRotaPersonalizadaV75).filter(Boolean);
+    const erros = selecionados.filter(item => item.erro).map(item => item.erro);
+    if (erros.length) { if (mensagem) mensagem.textContent = erros.join(' '); return; }
+    if (!selecionados.length) { if (mensagem) mensagem.textContent = 'Selecione pelo menos um trem.'; return; }
+    const codigos = selecionados.map(item => item.codigo);
+    if (new Set(codigos).size !== codigos.length) { if (mensagem) mensagem.textContent = 'O mesmo trem não pode ser utilizado em duas posições.'; return; }
+
+    resetarCenario(false);
+    window.CCO_MISSAO_AGUARDANDO_DECISAO = false;
+    selecionados.forEach(item => {
+        FATOR_VELOCIDADE_TREM[item.codigo] = item.fator;
+        const trem = trainState[item.codigo];
+        if (trem) trem.elemento.setAttribute('transform', item.config.inicio);
+    });
+    if (mensagem) mensagem.textContent = `${selecionados.length} trem(ns) preparado(s). Rotas validadas antes do despacho.`;
+
+    selecionados.forEach((item, indice) => {
+        const timer = setTimeout(() => solicitarRota(item.rotaId), indice * 650);
+        activeTimers.push(timer);
+    });
+}
+
+function inicializarOperacaoPersonalizadaV75() {
+    [1,2,3,4].forEach(indice => {
+        const seletor = document.getElementById(`custom-train-${indice}-name`);
+        if (!seletor) return;
+        seletor.addEventListener('change', () => preencherRotasV75(indice));
+        preencherRotasV75(indice);
+    });
+    const iniciar = document.getElementById('run-custom-operation');
+    if (iniciar && iniciar.dataset.v75 !== 'true') {
+        iniciar.dataset.v75 = 'true';
+        iniciar.addEventListener('click', event => {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            iniciarOperacaoPersonalizadaV75();
+        }, true);
+    }
+}
+
+if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', inicializarOperacaoPersonalizadaV75);
+else inicializarOperacaoPersonalizadaV75();

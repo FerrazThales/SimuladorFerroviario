@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulador de Elementos Ferroviários</title>
-  <link rel="stylesheet" href="./css/cco.css?v=74">
+  <link rel="stylesheet" href="./css/cco.css?v=75">
 </head>
 <body>
 <header class="cco-header">
@@ -82,22 +82,35 @@
   <div class="mode-panel mode-panel--custom" data-mode-panel="livre">
     <div class="custom-intro">
       <strong>Operação Personalizada</strong>
-      <span>Configure dois trens, velocidade e rota. O despacho só comeca quando você clicar em iniciar.</span>
+      <span>Selecione até quatro trens. Somente rotas contínuas e compatíveis com a posição inicial serão apresentadas.</span>
     </div>
-    <div class="custom-trains-grid">
+    <div class="custom-trains-grid custom-trains-grid--four">
       <fieldset class="custom-train-card">
         <legend>Trem 1</legend>
-        <label class="operation-field"><span>Nome do trem</span><input id="custom-train-1-name" type="text" value="T201" maxlength="12"></label>
-        <label class="operation-field"><span>Velocidade</span><select id="custom-train-1-speed"><option value="0.70">Lenta</option><option value="1" selected>Normal</option><option value="1.30">Rápida</option></select></label>
-        <label class="operation-field operation-field--wide"><span>Rota</span><select id="custom-train-1-route"></select></label>
+        <label class="operation-field"><span>Trem</span><select id="custom-train-1-name"><option value="">Não utilizar</option><option value="T101">T101</option><option value="T201" selected>T201</option><option value="T301">T301</option><option value="T302">T302</option><option value="T401">T401</option><option value="T501">T501</option></select></label>
+        <label class="operation-field"><span>Velocidade</span><select id="custom-train-1-speed"><option value="0.70">Lenta</option><option value="1" selected>Normal</option><option value="1.20">Rápida</option></select></label>
+        <label class="operation-field operation-field--wide"><span>Rota ferroviária válida</span><select id="custom-train-1-route"><option value="">Selecione um trem</option></select></label>
       </fieldset>
       <fieldset class="custom-train-card">
         <legend>Trem 2</legend>
-        <label class="operation-field"><span>Nome do trem</span><input id="custom-train-2-name" type="text" value="T301" maxlength="12"></label>
-        <label class="operation-field"><span>Velocidade</span><select id="custom-train-2-speed"><option value="0.70">Lenta</option><option value="1" selected>Normal</option><option value="1.30">Rápida</option></select></label>
-        <label class="operation-field operation-field--wide"><span>Rota</span><select id="custom-train-2-route"></select></label>
+        <label class="operation-field"><span>Trem</span><select id="custom-train-2-name"><option value="">Não utilizar</option><option value="T101">T101</option><option value="T201">T201</option><option value="T301" selected>T301</option><option value="T302">T302</option><option value="T401">T401</option><option value="T501">T501</option></select></label>
+        <label class="operation-field"><span>Velocidade</span><select id="custom-train-2-speed"><option value="0.70">Lenta</option><option value="1" selected>Normal</option><option value="1.20">Rápida</option></select></label>
+        <label class="operation-field operation-field--wide"><span>Rota ferroviária válida</span><select id="custom-train-2-route"><option value="">Selecione um trem</option></select></label>
+      </fieldset>
+      <fieldset class="custom-train-card">
+        <legend>Trem 3</legend>
+        <label class="operation-field"><span>Trem</span><select id="custom-train-3-name"><option value="">Não utilizar</option><option value="T101">T101</option><option value="T201">T201</option><option value="T301">T301</option><option value="T302">T302</option><option value="T401">T401</option><option value="T501">T501</option></select></label>
+        <label class="operation-field"><span>Velocidade</span><select id="custom-train-3-speed"><option value="0.70">Lenta</option><option value="1" selected>Normal</option><option value="1.20">Rápida</option></select></label>
+        <label class="operation-field operation-field--wide"><span>Rota ferroviária válida</span><select id="custom-train-3-route"><option value="">Selecione um trem</option></select></label>
+      </fieldset>
+      <fieldset class="custom-train-card">
+        <legend>Trem 4</legend>
+        <label class="operation-field"><span>Trem</span><select id="custom-train-4-name"><option value="">Não utilizar</option><option value="T101">T101</option><option value="T201">T201</option><option value="T301">T301</option><option value="T302">T302</option><option value="T401">T401</option><option value="T501">T501</option></select></label>
+        <label class="operation-field"><span>Velocidade</span><select id="custom-train-4-speed"><option value="0.70">Lenta</option><option value="1" selected>Normal</option><option value="1.20">Rápida</option></select></label>
+        <label class="operation-field operation-field--wide"><span>Rota ferroviária válida</span><select id="custom-train-4-route"><option value="">Selecione um trem</option></select></label>
       </fieldset>
     </div>
+    <div class="custom-help"><strong>Regra do simulador:</strong> cada trem começa no início da rota selecionada. Rotas descontínuas, incompatíveis ou pertencentes a outro trem não são oferecidas.</div>
     <div class="custom-actions">
       <button type="button" class="operation-primary" id="run-custom-operation">Iniciar operação</button>
       <button type="button" class="operation-secondary" id="reset-custom-operation">Limpar</button>
@@ -223,7 +236,7 @@ const sg=document.currentScript.previousElementSibling;const pts=[[105,180,'S101
 </section>
 
 </main>
-<script src="./js/cco.js?v=74"></script>
-<script src="./js/decisions.js?v=74"></script>
+<script src="./js/cco.js?v=75"></script>
+<script src="./js/decisions.js?v=75"></script>
 </body>
 </html>
