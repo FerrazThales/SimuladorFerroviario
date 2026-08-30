@@ -469,3 +469,42 @@ body{background:#010304;color:var(--txt);font-family:Consolas,"Segoe UI",monospa
 .custom-help strong{color:#74d8a0}
 @media(max-width:1200px){.custom-trains-grid--four{grid-template-columns:1fr!important}.custom-trains-grid--four .custom-train-card{grid-template-columns:150px 140px minmax(220px,1fr)!important}}
 @media(max-width:720px){.custom-trains-grid--four .custom-train-card{grid-template-columns:1fr!important}}
+
+
+/* ===== Revisão v76 - mapa visível na Operação Personalizada ===== */
+html,body{height:100%;overflow:hidden!important}
+body{display:flex!important;flex-direction:column!important;min-height:0}
+.cco-header,.operation-hub{flex:0 0 auto}
+.cco-main{flex:1 1 auto!important;height:auto!important;min-height:0!important}
+.synoptic-panel,.synoptic-viewport{min-height:0!important}
+.mode-panel--custom.active{max-height:238px;overflow-y:auto;align-items:stretch!important}
+.mode-panel--custom .custom-intro{margin-bottom:5px!important}
+.mode-panel--custom .custom-trains-grid--four{gap:6px!important}
+.mode-panel--custom .custom-train-card{padding:5px 7px!important;gap:6px!important}
+.mode-panel--custom .custom-help{margin-top:5px!important;padding:5px 8px!important}
+.mode-panel--custom .custom-actions{margin-top:5px!important}
+.operation-hub.custom-collapsed .mode-panel--custom.active{max-height:43px;overflow:hidden;padding-top:6px!important;padding-bottom:6px!important}
+.operation-hub.custom-collapsed .mode-panel--custom .custom-intro,
+.operation-hub.custom-collapsed .mode-panel--custom .custom-trains-grid,
+.operation-hub.custom-collapsed .mode-panel--custom .custom-help{display:none!important}
+.operation-hub.custom-collapsed .mode-panel--custom .custom-actions{margin:0!important}
+.operation-hub.custom-collapsed #run-custom-operation,
+.operation-hub.custom-collapsed #reset-custom-operation,
+.operation-hub.custom-collapsed #custom-operation-message{display:none!important}
+#toggle-custom-panel{white-space:nowrap}
+@media(max-height:760px){.mode-panel--custom.active{max-height:190px}.mode-panel--custom .custom-help{display:none}}
+
+
+/* ===== Revisão v77 - barra de ações da Operação Personalizada ===== */
+.mode-panel--custom .custom-actions{position:sticky;bottom:0;z-index:8;display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:9px!important;min-height:52px;margin:8px -14px -10px!important;padding:9px 14px!important;border-top:1px solid #263746;background:linear-gradient(180deg,rgba(7,12,18,.98),#05090d);box-shadow:0 -6px 16px rgba(0,0,0,.22)}
+.mode-panel--custom .custom-actions .operation-primary,.mode-panel--custom .custom-actions .operation-secondary{display:inline-flex!important;align-items:center;justify-content:center;width:auto!important;min-width:138px;height:35px!important;padding:0 16px!important;border-radius:6px!important;font-family:"Segoe UI",Arial,sans-serif!important;font-size:10.5px!important;font-weight:700!important;letter-spacing:.1px;white-space:nowrap;transition:background .15s ease,border-color .15s ease,color .15s ease,transform .15s ease}
+.mode-panel--custom .custom-actions .operation-primary{border:1px solid #31dc84!important;background:#0d8e55!important;color:#fff!important;box-shadow:0 0 0 1px rgba(49,220,132,.08) inset}
+.mode-panel--custom .custom-actions .operation-primary:hover{background:#11a865!important;border-color:#57efa0!important;transform:translateY(-1px)}
+.mode-panel--custom .custom-actions .operation-secondary{border:1px solid #3b5265!important;background:#101a25!important;color:#d8e5ed!important}
+.mode-panel--custom .custom-actions .operation-secondary:hover{border-color:#6c8ba2!important;background:#172635!important;color:#fff!important;transform:translateY(-1px)}
+.mode-panel--custom #toggle-custom-panel{min-width:132px;border-color:#315e73!important;color:#9dd8ef!important}
+.mode-panel--custom #custom-operation-message{order:-1;flex:1 1 auto;min-width:0;margin-right:auto;color:#8fc9a8!important;font-size:10px!important;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.operation-hub.custom-collapsed .mode-panel--custom.active{max-height:52px!important}
+.operation-hub.custom-collapsed .mode-panel--custom .custom-actions{min-height:40px;margin:-1px -14px!important;padding:6px 14px!important;border-top:0;box-shadow:none;justify-content:flex-end!important}
+.operation-hub.custom-collapsed #toggle-custom-panel{display:inline-flex!important;min-width:150px}
+@media(max-width:760px){.mode-panel--custom .custom-actions{flex-wrap:wrap;position:relative;margin:8px 0 0!important;padding:8px 0!important}.mode-panel--custom .custom-actions .operation-primary,.mode-panel--custom .custom-actions .operation-secondary{flex:1 1 145px}.mode-panel--custom #custom-operation-message{flex-basis:100%;order:-1;white-space:normal}}

@@ -2285,3 +2285,58 @@ function inicializarOperacaoPersonalizadaV75() {
 
 if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', inicializarOperacaoPersonalizadaV75);
 else inicializarOperacaoPersonalizadaV75();
+
+
+// ===== Revisão v76 - recolhimento da configuração e redimensionamento do mapa =====
+function atualizarTextoPainelPersonalizadoV76() {
+    const hub = document.querySelector('.operation-hub');
+    const botao = document.getElementById('toggle-custom-panel');
+    if (!hub || !botao) return;
+    const recolhido = hub.classList.contains('custom-collapsed');
+    botao.textContent = recolhido ? 'Editar configurações' : 'Recolher painel';
+    botao.setAttribute('aria-expanded', String(!recolhido));
+    window.dispatchEvent(new Event('resize'));
+}
+
+function alternarPainelPersonalizadoV76(forcarRecolhido = null) {
+    const hub = document.querySelector('.operation-hub');
+    if (!hub) return;
+    if (typeof forcarRecolhido === 'boolean') hub.classList.toggle('custom-collapsed', forcarRecolhido);
+    else hub.classList.toggle('custom-collapsed');
+    atualizarTextoPainelPersonalizadoV76();
+}
+
+function instalarPainelPersonalizadoV76() {
+    const botao = document.getElementById('toggle-custom-panel');
+    if (botao && botao.dataset.v76 !== 'true') {
+        botao.dataset.v76 = 'true';
+        botao.addEventListener('click', event => {
+            event.preventDefault();
+            alternarPainelPersonalizadoV76();
+        });
+    }
+
+    const iniciar = document.getElementById('run-custom-operation');
+    if (iniciar && iniciar.dataset.collapseV76 !== 'true') {
+        iniciar.dataset.collapseV76 = 'true';
+        iniciar.addEventListener('click', () => {
+            // Aguarda a validação da operação e então libera espaço para acompanhar toda a malha.
+            setTimeout(() => {
+                const mensagem = document.getElementById('custom-operation-message')?.textContent || '';
+                if (!mensagem.toLowerCase().includes('erro') && !mensagem.toLowerCase().includes('selecione') && !mensagem.toLowerCase().includes('não pode')) {
+                    alternarPainelPersonalizadoV76(true);
+                    document.getElementById('map-zoom-reset')?.click();
+                }
+            }, 80);
+        });
+    }
+
+    document.querySelectorAll('[data-mode-tab]').forEach(tab => {
+        tab.addEventListener('click', () => {
+            if (tab.dataset.modeTab !== 'livre') alternarPainelPersonalizadoV76(false);
+        });
+    });
+}
+
+if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', instalarPainelPersonalizadoV76);
+else instalarPainelPersonalizadoV76();

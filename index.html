@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulador de Elementos Ferroviários</title>
-  <link rel="stylesheet" href="./css/cco.css?v=75">
+  <link rel="stylesheet" href="./css/cco.css?v=77">
 </head>
 <body>
 <header class="cco-header">
@@ -113,7 +113,8 @@
     <div class="custom-help"><strong>Regra do simulador:</strong> cada trem começa no início da rota selecionada. Rotas descontínuas, incompatíveis ou pertencentes a outro trem não são oferecidas.</div>
     <div class="custom-actions">
       <button type="button" class="operation-primary" id="run-custom-operation">Iniciar operação</button>
-      <button type="button" class="operation-secondary" id="reset-custom-operation">Limpar</button>
+      <button type="button" class="operation-secondary" id="reset-custom-operation">Limpar configuração</button>
+      <button type="button" class="operation-secondary" id="toggle-custom-panel" aria-expanded="true">Recolher painel</button>
       <span id="custom-operation-message" role="status" aria-live="polite"></span>
     </div>
   </div>
@@ -236,7 +237,7 @@ const sg=document.currentScript.previousElementSibling;const pts=[[105,180,'S101
 </section>
 
 </main>
-<script src="./js/cco.js?v=75"></script>
-<script src="./js/decisions.js?v=75"></script>
+<script src="./js/cco.js?v=77"></script>
+<script src="./js/decisions.js?v=77"></script>
 </body>
 </html>
