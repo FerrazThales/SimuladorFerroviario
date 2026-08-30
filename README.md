@@ -1,50 +1,105 @@
 # Simulador Ferroviário
 
-Durante minha carreira, atuei em diversos segmentos. Já trabalhei em consultorias de TI, empresas de extração de petróleo e gás, na indústria de plásticos e no setor automotivo.
+Aprender sobre ferrovia é um desafio porque a operação reúne muitos elementos que precisam funcionar de forma coordenada. Linhas, blocos, pátios, aparelhos de mudança de via, sinais, sensores, rotas, interdições e diferentes tipos de movimento fazem parte de um sistema amplo, no qual uma decisão pode afetar diversas áreas ao mesmo tempo.
 
-Por ser formado em Engenharia de Produção, sempre tento entender a lógica por trás dos processos e a forma como a dinâmica organizacional foi estruturada. Por que determinadas atividades são realizadas de uma maneira específica? Por que existem algumas diretorias e áreas especializadas? Como cada parte se conecta ao processo como um todo?
+Para quem está começando, nem sempre é fácil visualizar como esses conceitos se conectam. Textos, procedimentos e diagramas técnicos são fundamentais, mas podem parecer abstratos quando estudados separadamente. Este simulador foi criado para transformar parte desse conhecimento em uma experiência visual e interativa, ajudando a observar a malha, acompanhar a movimentação dos trens e compreender relações operacionais de maneira mais integrada.
 
-Atualmente, estou atuando no setor ferroviário, e tem sido um grande desafio entender não apenas os dados, mas também toda a parte técnica e processual envolvida.
+O projeto apresenta um painel sinóptico ferroviário simplificado, inspirado na forma como linhas, pátios, blocos, sinais e rotas podem ser representados em ambientes de controle operacional. A proposta é oferecer um espaço de estudo no qual seja possível experimentar cenários, acompanhar alterações de estado na malha e analisar consequências de decisões simuladas.
 
-Busquei em livros e artigos compreender melhor a nomenclatura utilizada na ferrovia. Por que uma estrutura é chamada de **obra de arte**? Por que se utiliza o termo **via permanente**? Por que existem diferentes bitolas? Aliás, entender a questão das bitolas no Brasil já é outro assunto bastante interessante.
+> **Importante:** este projeto tem finalidade exclusivamente educacional. O simulador não reproduz integralmente uma ferrovia real, não representa procedimentos oficiais e não substitui normas, treinamentos, sistemas homologados ou orientações de empresas ferroviárias.
 
-Percebi que apenas ler sobre esses conceitos nem sempre era suficiente para compreender como tudo se relacionava. Por isso, criei este simulador como uma ferramenta pessoal de estudo e uma forma de visualizar melhor alguns elementos da ferrovia.
+## Acessar o simulador
 
-A ideia surgiu da necessidade de entender, de maneira mais prática, como funcionam linhas, blocos, pátios, sinais, sensores, AMVs, rotas e a movimentação dos trens.
+[https://ferrazthales.github.io/SimuladorFerroviario/](https://ferrazthales.github.io/SimuladorFerroviario/)
 
-Este simulador ainda é uma representação simplificada e acompanha o meu próprio processo de aprendizado. A intenção não é reproduzir uma operação ferroviária real, mas transformar conceitos que antes pareciam abstratos em algo visual, interativo e mais fácil de compreender.
+## O que pode ser estudado
 
-## Acessar
+O simulador permite observar conceitos relacionados a:
 
-https://ferrazthales.github.io/SimuladorFerroviario/
+- linhas principais e vias de pátio;
+- divisão da malha em blocos;
+- ocupação, reserva e liberação de trechos;
+- estabelecimento e proteção de rotas;
+- liberação progressiva dos blocos após a passagem do trem;
+- circulação em linha dupla;
+- encontros e cruzamentos de trens em pátios;
+- aparelhos de mudança de via, representados como AMVs;
+- sinais e sensores distribuídos pela malha;
+- manobras e estacionamento de composições;
+- interdições e janelas de manutenção;
+- falhas simuladas em trechos e AMVs;
+- regulação de trens de carga;
+- aproximação e recebimento em terminais;
+- conflitos entre rotas e movimentos incompatíveis;
+- tomada de decisão em situações operacionais simuladas.
 
-## Funcionalidades
+## Modos de uso
 
-O simulador possui:
+### Cenários
 
-- cenários de circulação;
-- situações com falhas e bloqueios;
-- movimentação em linhas e pátios;
-- missões com escolhas operacionais;
-- configuração personalizada de dois trens;
-- representação visual dos estados da malha.
+Apresenta situações previamente configuradas para demonstrar comportamentos da malha. Os cenários incluem circulação simultânea, encontro de trens, falhas, bloqueios, manutenção, manobras, uso da pera de retorno e situações relacionadas à sinalização ferroviária.
 
-## Estados dos trechos
+### Modo Decisão
 
-- **Verde:** livre
-- **Amarelo:** reservado
-- **Vermelho:** ocupado
-- **Cinza:** indisponível ou interditado
+Apresenta missões divididas em fases. Em cada etapa, a pessoa analisa uma situação e escolhe uma alternativa. As decisões alteram indicadores como pontuação, segurança, tentativas e sequência, além de produzir consequências visuais no painel.
 
-## Tecnologias
+Após cada escolha, o simulador apresenta uma explicação didática sobre o impacto da decisão. O objetivo não é avaliar procedimentos reais, mas incentivar o raciocínio sobre segurança, capacidade, conflitos, comunicação, falhas e continuidade da operação.
 
-- HTML
-- CSS
-- JavaScript
-- SVG
-- GitHub Pages
+### Operação Personalizada
 
-## Estrutura
+Permite selecionar trens, velocidades e rotas previamente validadas. O simulador oferece somente percursos compatíveis com a posição inicial de cada trem e verifica a continuidade física entre os segmentos, reduzindo movimentos incoerentes ou saltos entre linhas.
+
+Também é possível configurar mais de um trem para observar circulação paralela, compartilhamento de recursos e bloqueios causados por rotas incompatíveis.
+
+## Leitura visual da malha
+
+A representação gráfica utiliza cores para indicar o estado dos trechos:
+
+- **Verde:** trecho livre;
+- **Amarelo:** trecho pertencente a uma rota estabelecida e protegida;
+- **Vermelho:** trecho ocupado por um trem;
+- **Cinza:** trecho indisponível, interditado ou associado a uma falha simulada.
+
+Durante uma movimentação, a rota pode ser reservada antes da partida. Conforme o trem avança, o bloco atual fica ocupado, os blocos à frente permanecem protegidos e os blocos já liberados retornam ao estado livre.
+
+## Elementos representados
+
+O painel sinóptico inclui:
+
+- duas linhas principais;
+- estações e limites de áreas operacionais;
+- pátios de cruzamento, estacionamento e manobra;
+- blocos e circuitos de via simplificados;
+- AMVs e conexões entre vias;
+- sinais ferroviários;
+- sensores de detecção;
+- pera de retorno;
+- identificadores de trens;
+- painel de estados da malha;
+- linha do tempo de eventos operacionais;
+- controles de zoom, navegação e tela cheia.
+
+## Limitações
+
+A ferrovia real envolve regras, tecnologias, responsabilidades e condições operacionais muito mais amplas do que as apresentadas neste projeto. Por isso:
+
+- as distâncias e velocidades são ilustrativas;
+- a geometria da malha é esquemática;
+- os sinais e estados foram simplificados;
+- os cenários não representam procedimentos oficiais;
+- as decisões não devem ser utilizadas como orientação operacional;
+- a lógica não substitui um sistema real de sinalização ou intertravamento;
+- os conceitos podem variar conforme a ferrovia, a tecnologia adotada e a regulamentação aplicável.
+
+## Tecnologias utilizadas
+
+- HTML;
+- CSS;
+- JavaScript;
+- SVG;
+- GitHub Pages.
+
+## Estrutura do projeto
 
 ```text
 SimuladorFerroviario/
@@ -54,3 +109,10 @@ SimuladorFerroviario/
 └── js/
     ├── cco.js
     └── decisions.js
+```
+
+## Objetivo do projeto
+
+O objetivo principal é facilitar a aprendizagem por meio da visualização. Ao reunir diferentes elementos em um único painel, o simulador ajuda a construir uma visão mais ampla da ferrovia e das relações entre infraestrutura, sinalização, circulação, manutenção, pátios, terminais e tomada de decisão.
+
+O projeto pode evoluir continuamente com novos cenários, rotas, elementos visuais e explicações. A intenção é tornar conceitos ferroviários mais acessíveis sem eliminar a complexidade que faz da ferrovia um ambiente técnico, integrado e desafiador.
